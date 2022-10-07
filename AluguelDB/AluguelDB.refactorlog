@@ -7,4 +7,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CustomDivsion" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="7fbdcc38-fb51-434b-9265-785a6f0fefa1" ChangeDateTime="10/07/2022 06:04:37">
+    <Property Name="ElementName" Value="[dbo].[Rent].[Date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Rent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Month" />
+  </Operation>
 </Operations>
