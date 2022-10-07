@@ -1,5 +1,4 @@
 ﻿using AluguelRV.Domain;
-using AluguelRV.Domain.Interfaces.Services;
 
 namespace AluguelRV.Api;
 

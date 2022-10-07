@@ -1,4 +1,5 @@
 ﻿using AluguelRV.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AluguelRV.Api;
 

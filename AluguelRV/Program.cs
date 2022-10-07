@@ -1,5 +1,6 @@
 using AluguelRV.Api;
 using AluguelRV.Api.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureDependencyInjection();
 builder.Services.ConfigureAutoMapper();
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+//        .RequireAuthenticatedUser()
+//        .Build();
+//});
 
 var app = builder.Build();
 
