@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Room]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Name] NVARCHAR(50) NULL, 
+    [Percentage] DECIMAL(5, 2) NOT NULL, 
+    [Archived] BIT NOT NULL DEFAULT 0, 
+    [Deleted] BIT NOT NULL DEFAULT 0, 
+    [Timestamp] DATETIME2 NULL DEFAULT GETUTCDATE()
+)
