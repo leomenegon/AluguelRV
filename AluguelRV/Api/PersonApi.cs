@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AluguelRV.Api;
 
-public static class PersonApi
+public static class Person
 {
     public static async Task<IResult> GetAll(IPersonService personService)
         => Api.Response(await personService.GetAll());

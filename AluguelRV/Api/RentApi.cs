@@ -2,7 +2,7 @@
 
 namespace AluguelRV.Api;
 
-public static class RentApi
+public static class Rent
 {
     public static async Task<IResult> GetAll(IRentService rentService)
         => Api.Response(await rentService.GetAll());

@@ -7,12 +7,18 @@ public static class Api
     public static WebApplication ConfigureApi(this WebApplication app)
     {
         //Person
-        app.MapGet("/person", PersonApi.GetAll);
-        app.MapGet("/person/{id}", PersonApi.GetById);
+        app.MapGet("/person", Person.GetAll);
+        app.MapGet("/person/{id}", Person.GetById);
 
         //Rent
-        app.MapGet("/rent", RentApi.GetAll);
-        app.MapGet("/rent/{rentId}/room-amount/{personId}", RentApi.GetRoomAmountByPerson);
+        app.MapGet("/rent", Rent.GetAll);
+        app.MapGet("/rent/room-amount/", Rent.GetRoomAmountByPerson);
+
+        //Expense
+        app.MapGet("/expense", Expense.GetAll);
+        app.MapGet("/expense/{id}", Expense.GetById);
+        app.MapGet("/expense/person", Expense.GetByPerson);
+        app.MapGet("/expense/rent", Expense.GetByRent);
 
         return app;
     }

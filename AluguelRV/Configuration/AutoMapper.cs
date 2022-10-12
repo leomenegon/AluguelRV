@@ -8,6 +8,7 @@ public static class AutoMapper
     {
         services.AddAutoMapper(
             typeof(PersonProfile),
+            typeof(ExpenseProfile),
             typeof(RentProfile));
 
         return services;

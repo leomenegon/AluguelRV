@@ -1,13 +1,15 @@
 ﻿CREATE PROCEDURE [dbo].[spExpense_GetByPerson] @RentId INT, @PersonId INT
 AS
 BEGIN
-	DECLARE @ExpenseIdList TABLE ([Id] INT)
+	DECLARE @ExpenseIdList TABLE ([Id] INT, [CustomDivsion] BIT)
 	DECLARE @ExpenseId INT
 	DECLARE @PersonCount INT
-	DECLARE @Result TABLE ([Id] INT, [Name] NVARCHAR(100), [IndividualAmount] SMALLMONEY)
+	DECLARE @Result TABLE ([Id] INT, [Name] NVARCHAR(100), [IndividualAmount] SMALLMONEY, [Amount] SMALLMONEY)
+	DECLARE @IsCustom BIT
+	DECLARE @CustomAmount INT
 
 	INSERT INTO @ExpenseIdList
-	SELECT e.[Id]
+	SELECT e.[Id], e.[CustomDivsion]
 	FROM dbo.ExpensePerson ep
 	INNER JOIN dbo.Expense e ON ep.ExpenseId = e.[Id]
 	WHERE ep.PersonId = @PersonId
@@ -17,22 +19,46 @@ BEGIN
 	WHILE (1 = 1)
 	BEGIN
 		SET @ExpenseId = NULL
+		SET @IsCustom = NULL
 
 		SELECT TOP (1) @ExpenseId = [Id]
+		FROM @ExpenseIdList
+
+		SELECT TOP (1) @IsCustom = [CustomDivsion]
 		FROM @ExpenseIdList
 
 		IF @ExpenseId IS NULL
 			BREAK
 
-		SELECT @PersonCount = COUNT([PersonId])
-		FROM dbo.[ExpensePerson]
-		WHERE [ExpenseId] = @ExpenseId
+		IF @IsCustom = 0
+		BEGIN
 
-		INSERT @Result
-		SELECT [Id], [Name], [Amount] / @PersonCount
-		FROM dbo.Expense
-		WHERE [Id] = @ExpenseId
-			AND [Deleted] = 0
+			SELECT @PersonCount = COUNT([PersonId])
+			FROM dbo.[ExpensePerson]
+			WHERE [ExpenseId] = @ExpenseId
+
+			INSERT @Result
+			SELECT [Id], [Name], [Amount] / @PersonCount, [Amount]
+			FROM dbo.Expense
+			WHERE [Id] = @ExpenseId
+				AND [Deleted] = 0
+
+		END
+
+		ELSE
+		BEGIN
+
+			SELECT @CustomAmount = [CustomAmount]
+			FROM dbo.ExpensePerson
+			WHERE [ExpenseId] = @ExpenseId
+			AND [PersonId] = @PersonId
+
+			INSERT @Result
+			SELECT [Id], [Name], @CustomAmount, [Amount]
+			FROM dbo.Expense
+			WHERE [Id] = @ExpenseId
+				AND [Deleted] = 0
+		END
 
 		DELETE TOP (1)
 		FROM @ExpenseIdList

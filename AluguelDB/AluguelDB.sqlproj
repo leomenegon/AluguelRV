@@ -76,6 +76,8 @@
     <Build Include="dbo\StoredProcedures\Expense\spExpense_GetByRent.sql" />
     <Build Include="dbo\StoredProcedures\Expense\spExpense_GetByPerson.sql" />
     <Build Include="dbo\StoredProcedures\Rent\spRent_GetRoomAmountByPerson.sql" />
+    <Build Include="dbo\StoredProcedures\Expense\spExpense_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Expense\spExpense_GetAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AluguelDB.publish.xml" />

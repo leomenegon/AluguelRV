@@ -16,9 +16,11 @@ public static class DependencyInjection
         services.AddScoped<IPersonData, PersonData>();
         services.AddScoped<IPersonService, PersonService>();
 
-
         services.AddScoped<IRentData, RentData>();
         services.AddScoped<IRentService, RentService>();
+
+        services.AddScoped<IExpenseData, ExpenseData>();
+        services.AddScoped<IExpenseService, ExpenseService>();
 
         return services;
     }
