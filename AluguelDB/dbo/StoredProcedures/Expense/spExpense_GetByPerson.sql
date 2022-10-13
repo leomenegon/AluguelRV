@@ -4,9 +4,9 @@ BEGIN
 	DECLARE @ExpenseIdList TABLE ([Id] INT, [CustomDivsion] BIT)
 	DECLARE @ExpenseId INT
 	DECLARE @PersonCount INT
-	DECLARE @Result TABLE ([Id] INT, [Name] NVARCHAR(100), [IndividualAmount] SMALLMONEY, [Amount] SMALLMONEY)
+	DECLARE @Result TABLE ([Id] INT, [Name] NVARCHAR(100), [Type] TINYINT, [IndividualAmount] SMALLMONEY, [Amount] SMALLMONEY)
 	DECLARE @IsCustom BIT
-	DECLARE @CustomAmount INT
+	DECLARE @CustomAmount SMALLMONEY
 
 	INSERT INTO @ExpenseIdList
 	SELECT e.[Id], e.[CustomDivsion]
@@ -38,7 +38,7 @@ BEGIN
 			WHERE [ExpenseId] = @ExpenseId
 
 			INSERT @Result
-			SELECT [Id], [Name], [Amount] / @PersonCount, [Amount]
+			SELECT [Id], [Name], [Type], [Amount] / @PersonCount, [Amount]
 			FROM dbo.Expense
 			WHERE [Id] = @ExpenseId
 				AND [Deleted] = 0
@@ -54,7 +54,7 @@ BEGIN
 			AND [PersonId] = @PersonId
 
 			INSERT @Result
-			SELECT [Id], [Name], @CustomAmount, [Amount]
+			SELECT [Id], [Name], [Type], @CustomAmount, [Amount]
 			FROM dbo.Expense
 			WHERE [Id] = @ExpenseId
 				AND [Deleted] = 0

@@ -13,6 +13,9 @@ public static class DependencyInjection
     {
         services.AddSingleton<IDataAccess, DataAccess>();
 
+        services.AddScoped<IUserData, UserData>();
+        services.AddScoped<IUserService, UserService>();
+
         services.AddScoped<IPersonData, PersonData>();
         services.AddScoped<IPersonService, PersonService>();
 

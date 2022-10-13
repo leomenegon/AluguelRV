@@ -62,6 +62,8 @@
     <Folder Include="dbo\StoredProcedures\Person" />
     <Folder Include="dbo\StoredProcedures\Rent" />
     <Folder Include="dbo\StoredProcedures\Expense" />
+    <Folder Include="dbo\StoredProcedures\User" />
+    <Folder Include="dbo\Types" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Expense.sql" />
@@ -78,6 +80,12 @@
     <Build Include="dbo\StoredProcedures\Rent\spRent_GetRoomAmountByPerson.sql" />
     <Build Include="dbo\StoredProcedures\Expense\spExpense_Get.sql" />
     <Build Include="dbo\StoredProcedures\Expense\spExpense_GetAll.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\StoredProcedures\User\spUser_GetByUsername.sql" />
+    <Build Include="dbo\StoredProcedures\User\spUser_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Expense\spExpense_Insert.sql" />
+    <Build Include="dbo\Types\PersonAmountType.sql" />
+    <Build Include="dbo\StoredProcedures\Expense\spExpense_GetPersons.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AluguelDB.publish.xml" />

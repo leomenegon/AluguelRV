@@ -2,6 +2,10 @@
 using AluguelRV.Domain.Interfaces.Data;
 using AluguelRV.Domain.Interfaces;
 using AluguelRV.Domain.ViewModels;
+using AluguelRV.Domain.Dtos;
+using System.Data;
+using Dapper;
+using static Dapper.SqlMapper;
 
 namespace AluguelRV.Repository.Data;
 public class ExpenseData : IExpenseData
@@ -33,5 +37,29 @@ public class ExpenseData : IExpenseData
     public Task<IEnumerable<ExpenseViewModel>> GetByRent(int rentId)
     {
         return _db.LoadData<ExpenseViewModel, dynamic>("dbo.spExpense_GetByRent", new { RentId = rentId });
+    }
+
+    public Task<IEnumerable<PersonViewModel>> GetPersons(int expenseId)
+    {
+        return _db.LoadData<PersonViewModel, dynamic>("dbo.spExpense_GetPersons", new { ExpenseId = expenseId });
+    }
+
+    public Task Create(CreateExpenseRequest dto)
+    {
+        if (dto.PersonAmount == null)
+            dto.PersonAmount = new List<ExpensePersonRequest>();
+
+        var parameters = new
+        {
+            RentId = dto.RentId,
+            Name = dto.Name,
+            Type = dto.Type,
+            Description = dto.Description,
+            Amount = dto.Amount,
+            CustomDivision = dto.CustomDivision,
+            PersonAmount = dto.PersonAmount.ToDataTable().AsTableValuedParameter("dbo.PersonAmountType")
+        };
+
+        return _db.ExecuteCommand("dbo.spExpense_Insert", parameters);
     }
 }

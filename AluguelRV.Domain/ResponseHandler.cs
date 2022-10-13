@@ -42,6 +42,13 @@ public class ResponseHandler
         _response.Ok = false;
     }
 
+    public void SetBadRequest(string message)
+    {
+        _response.Message = message;
+        _response.Status = ResponseStatus.BadRequest;
+        _response.Ok = false;
+    }
+
     public bool IsOk()
         => _response.Ok;
 

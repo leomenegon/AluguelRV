@@ -13,6 +13,6 @@ public record RentViewModel
 public record RentRoomViewModel
 {
     public int RoomId { get; set; }
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public decimal RoomAmount { get; set; }
 }
