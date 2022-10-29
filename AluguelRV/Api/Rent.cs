@@ -8,4 +8,6 @@ public static class Rent
         => Api.Response(await rentService.GetAll());
     public static async Task<IResult> GetRoomAmountByPerson(int rentId, int personId, IRentService rentService)
         => Api.Response(await rentService.GetRoomAmountByPerson(rentId, personId));
+    public static async Task<IResult> GetPersonRent(int rentId, int personId, IRentService rentService)
+        => Api.Response(await rentService.GetPersonRent(rentId, personId));
 }

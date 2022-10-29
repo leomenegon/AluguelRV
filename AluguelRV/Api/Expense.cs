@@ -13,8 +13,8 @@ public static class Expense
         => Api.Response(await expenseService.GetByPerson(rentId, personId));
     public static async Task<IResult> GetByRent(int rentId, IExpenseService expenseService)
         => Api.Response(await expenseService.GetByRent(rentId));
-    public static async Task<IResult> GetDetails(int expenseId, IExpenseService expenseService)
-        => Api.Response(await expenseService.GetDetails(expenseId));
+    public static async Task<IResult> GetDetails(int id, IExpenseService expenseService)
+        => Api.Response(await expenseService.GetDetails(id));
     public static async Task<IResult> Create(CreateExpenseRequest request, IExpenseService expenseService)
         => Api.Response(await expenseService.Create(request));
 }

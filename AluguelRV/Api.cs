@@ -1,8 +1,6 @@
-﻿using AluguelRV.Domain;
+﻿namespace AluguelRV.Api;
 
-namespace AluguelRV.Api;
-
-public static class Api
+public static partial class Api
 {
     public static WebApplication ConfigureApi(this WebApplication app)
     {
@@ -17,6 +15,7 @@ public static class Api
         //Rent
         app.MapGet("/rent", Rent.GetAll);
         app.MapGet("/rent/room-amount/", Rent.GetRoomAmountByPerson);
+        app.MapGet("/rent/individual", Rent.GetPersonRent);
 
         //Expense
         app.MapGet("/expense", Expense.GetAll);
@@ -28,15 +27,4 @@ public static class Api
 
         return app;
     }
-
-    public static IResult Response(ResponseHandler response) => response.GetStatus() switch
-    {
-        ResponseStatus.Ok => Results.Ok(response),
-        ResponseStatus.Created => Results.Created(response.Message, response.Value),
-        ResponseStatus.BadRequest => Results.BadRequest(response),
-        ResponseStatus.Unauthorized => Results.Unauthorized(),
-        ResponseStatus.NotFound => Results.NotFound(response),
-        ResponseStatus.InternalError => Results.Problem(),
-        _ => Results.NoContent()
-    };
 }

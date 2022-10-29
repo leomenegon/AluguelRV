@@ -13,6 +13,8 @@ public static class DependencyInjection
     {
         services.AddSingleton<IDataAccess, DataAccess>();
 
+        services.AddScoped<IConfigData, ConfigData>();
+
         services.AddScoped<IUserData, UserData>();
         services.AddScoped<IUserService, UserService>();
 
