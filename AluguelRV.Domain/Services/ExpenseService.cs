@@ -69,9 +69,9 @@ public class ExpenseService : IExpenseService
 
     public async Task<ResponseHandler> GetDetails(int expenseId)
     {
-        var expense = await _expenseData.GetById(expenseId);
+        var expense = await _expenseData.GetDetailsById(expenseId, 1);
 
-        if(expense == null || expense.Deleted)
+        if(expense == null)
         {
             _response.SetAsNotFound();
             return _response;
@@ -79,9 +79,9 @@ public class ExpenseService : IExpenseService
 
         var persons = await _expenseData.GetPersons(expenseId);
 
-        _response.Value = new ExpenseDetailsViewModel
+        _response.Value = new ExpenseDetailsResponseViewModel
         {
-            Expense = _mapper.Map<ExpenseViewModel>(expense),
+            Expense = expense,
             Persons = _mapper.Map<IEnumerable<PersonViewModel>>(persons)
         };
 

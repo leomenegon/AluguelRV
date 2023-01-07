@@ -88,6 +88,7 @@
     <Build Include="dbo\Tables\Config.sql" />
     <Build Include="dbo\StoredProcedures\Config\spConfig_Get.sql" />
     <Build Include="dbo\StoredProcedures\Rent\spRent_GetPersonRent.sql" />
+    <Build Include="dbo\StoredProcedures\Expense\spExpense_GetDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AluguelDB.publish.xml" />

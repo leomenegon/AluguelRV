@@ -50,6 +50,7 @@ public static class Authentication
                 ValidAudience = builder.Configuration["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
             };
+            options.SaveToken = true;
         });
 
         services.AddAuthorization(

@@ -23,9 +23,10 @@ public static class User
 
             return Api.Response(response);
         }
-
+        
         var claims = new[]
         {
+            new Claim(ClaimTypes.Sid, "teste"),
             new Claim(ClaimTypes.NameIdentifier, "teste"),
             new Claim(ClaimTypes.Email, "teste@teste.com")
         };
@@ -36,7 +37,7 @@ public static class User
             claims: claims,
             expires: DateTime.UtcNow.AddDays(2),
             notBefore: DateTime.UtcNow,
-            signingCredentials: new(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:Key"))), SecurityAlgorithms.HmacSha256)
+            signingCredentials: new (new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:Key"))), SecurityAlgorithms.HmacSha256)
             );
 
         response.Value = new JwtSecurityTokenHandler().WriteToken(token);

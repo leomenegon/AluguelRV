@@ -62,4 +62,11 @@ public class ExpenseData : IExpenseData
 
         return _db.ExecuteCommand("dbo.spExpense_Insert", parameters);
     }
+
+    public async Task<ExpenseDetailsViewModel?> GetDetailsById(int expenseId, int personId)
+    {
+        var query = await _db.LoadData<ExpenseDetailsViewModel, dynamic>("dbo.spExpense_GetDetails", new { Id = expenseId, PersonId = personId });
+
+        return query.FirstOrDefault();
+    }
 }

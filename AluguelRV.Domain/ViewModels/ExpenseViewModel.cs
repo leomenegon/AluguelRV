@@ -11,6 +11,16 @@ public record ExpenseViewModel
     public decimal Amount { get; set; }
     public bool CustomDivision { get; set; }
 }
+public record ExpenseDetailsViewModel
+{
+    public int Id { get; set; }
+    public int RentId { get; set; }
+    public string? Name { get; set; }
+    public ExpenseType Type { get; set; }
+    public string? Description { get; set; }
+    public decimal IndividualAmount { get; set; }
+    public decimal Amount { get; set; }
+}
 
 public record PersonExpenseViewModel
 {
@@ -21,8 +31,8 @@ public record PersonExpenseViewModel
     public decimal Amount { get; set; }
 }
 
-public record ExpenseDetailsViewModel
+public record ExpenseDetailsResponseViewModel
 {
-    public ExpenseViewModel Expense { get; set; }
-    public IEnumerable<PersonViewModel> Persons { get; set; }
+    public ExpenseDetailsViewModel? Expense { get; set; }
+    public IEnumerable<PersonViewModel>? Persons { get; set; }
 }

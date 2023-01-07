@@ -11,4 +11,5 @@ public interface IExpenseData
     Task<IEnumerable<PersonExpenseViewModel>> GetByPerson(int rentId, int personId);
     Task<IEnumerable<ExpenseViewModel>> GetByRent(int rentId);
     Task<IEnumerable<PersonViewModel>> GetPersons(int expenseId);
+    Task<ExpenseDetailsViewModel?> GetDetailsById(int expenseId, int personId);
 }
