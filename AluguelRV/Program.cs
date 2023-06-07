@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen(Authentication.Options);
 builder.Services.ConfigureDependencyInjection();
 builder.Services.ConfigureAutoMapper();
 
-builder.Services.ConfigureAuthentication(builder);
+//builder.Services.ConfigureAuthentication(builder);
 
 builder.Services.AddCors();
 
@@ -30,8 +30,8 @@ app.UseCors(c =>
 
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
-app.UseAuthentication();
+//app.UseAuthorization();
+//app.UseAuthentication();
 
 app.ConfigureApi();
 
