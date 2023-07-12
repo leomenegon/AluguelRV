@@ -23,6 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AluguelRV.Repository", "Alu
 		{332853AD-10D6-45AF-B9A8-46C4E9CA3585} = {332853AD-10D6-45AF-B9A8-46C4E9CA3585}
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AluguelRV.Client", "AluguelRV.Client\AluguelRV.Client.csproj", "{F5AC3DD2-17A3-4F2E-B2E2-B6D564C66AD1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{332853AD-10D6-45AF-B9A8-46C4E9CA3585} = {332853AD-10D6-45AF-B9A8-46C4E9CA3585}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +52,10 @@ Global
 		{C824CD6A-387B-4440-9FB7-661C333001A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C824CD6A-387B-4440-9FB7-661C333001A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C824CD6A-387B-4440-9FB7-661C333001A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5AC3DD2-17A3-4F2E-B2E2-B6D564C66AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5AC3DD2-17A3-4F2E-B2E2-B6D564C66AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5AC3DD2-17A3-4F2E-B2E2-B6D564C66AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5AC3DD2-17A3-4F2E-B2E2-B6D564C66AD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

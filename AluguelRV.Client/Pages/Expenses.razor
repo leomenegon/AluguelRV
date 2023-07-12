@@ -1,0 +1,30 @@
+﻿@page "/expenses"
+@inject ExpenseService _expenseService
+
+<PageTitle>Gastos</PageTitle>
+<h3>Gastos</h3>
+
+@if(expenses == null)
+{
+    <h4>Carregando...</h4>
+}
+else
+{
+    @foreach(var expense in expenses)
+    {
+        <h5>@expense.Name</h5>
+        <p>@expense.Amount.ToString("R$ 0,0.00")</p>
+        <p>@expense.Type</p>
+        <br />
+    }
+}
+
+@code {
+    IEnumerable<ExpenseViewModel>? expenses = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await _expenseService.GetExpenses();
+        expenses = _expenseService.Expenses;
+    }
+}
