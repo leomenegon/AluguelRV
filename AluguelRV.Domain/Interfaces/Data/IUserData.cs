@@ -1,4 +1,4 @@
-﻿using AluguelRV.Domain.Dtos;
+﻿using AluguelRV.Shared.Dtos;
 using AluguelRV.Domain.Models;
 
 namespace AluguelRV.Domain.Interfaces.Data;

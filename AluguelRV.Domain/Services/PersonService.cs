@@ -2,7 +2,7 @@
 using AluguelRV.Domain.Interfaces.Data;
 using AluguelRV.Domain.Interfaces.Services;
 using AluguelRV.Domain.Models;
-using AluguelRV.Domain.ViewModels;
+using AluguelRV.Shared.ViewModels;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

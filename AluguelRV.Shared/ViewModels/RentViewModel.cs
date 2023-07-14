@@ -1,4 +1,4 @@
-﻿namespace AluguelRV.Domain.ViewModels;
+﻿namespace AluguelRV.Shared.ViewModels;
 public record RentViewModel
 {
     public int Id { get; set; }

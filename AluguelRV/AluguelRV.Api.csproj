@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AluguelRV.Domain\AluguelRV.Domain.csproj" />
     <ProjectReference Include="..\AluguelRV.Repository\AluguelRV.Repository.csproj" />
+    <ProjectReference Include="..\AluguelRV.Shared\AluguelRV.Shared.csproj" />
   </ItemGroup>
 
 </Project>

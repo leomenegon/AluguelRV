@@ -1,5 +1,5 @@
 ﻿using AluguelRV.Domain.Models;
-using AluguelRV.Domain.ViewModels;
+using AluguelRV.Shared.ViewModels;
 
 namespace AluguelRV.Domain.Interfaces.Data;
 public interface IRentData

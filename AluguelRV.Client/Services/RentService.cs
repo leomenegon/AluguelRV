@@ -18,7 +18,7 @@ public class RentService
 
     public async Task GetRents()
     {
-        var result = await _http.GetFromJsonAsync<RentListViewModel>($"rent");
+        var result = await _http.GetFromJsonAsync<RentListViewModel>($"api/rent");
 
         if (result != null)
             Rent = result.List?.FirstOrDefault();

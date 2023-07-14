@@ -1,4 +1,6 @@
-﻿namespace AluguelRV.Domain;
+﻿using System.Net;
+
+namespace AluguelRV.Domain;
 public class ResponseHandler
 {
     private ResponseModel _response;
@@ -38,21 +40,21 @@ public class ResponseHandler
     public void SetAsNotFound()
     {
         _response.Message = "Registro(s) não encontrado(s)";
-        _response.Status = ResponseStatus.NotFound;
+        _response.Status = HttpStatusCode.NotFound;
         _response.Ok = false;
     }
 
     public void SetBadRequest(string message)
     {
         _response.Message = message;
-        _response.Status = ResponseStatus.BadRequest;
+        _response.Status = HttpStatusCode.BadRequest;
         _response.Ok = false;
     }
 
     public bool IsOk()
         => _response.Ok;
 
-    public ResponseStatus GetStatus()
+    public HttpStatusCode GetStatus()
         => _response.Status;
 }
 
@@ -61,15 +63,5 @@ internal class ResponseModel
     public string Message { get; set; } = "Ok!";
     public dynamic? Value { get; set; }
     public bool Ok { get; set; } = true;
-    public ResponseStatus Status { get; set; } = ResponseStatus.Ok;
-}
-
-public enum ResponseStatus
-{
-    Ok = 200,
-    Created = 201,
-    BadRequest = 400,
-    Unauthorized = 401,
-    NotFound = 404,
-    InternalError = 500
+    public HttpStatusCode Status { get; set; } = HttpStatusCode.OK;
 }

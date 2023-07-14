@@ -1,5 +1,5 @@
 ﻿using AluguelRV.Domain;
-using AluguelRV.Domain.Dtos;
+using AluguelRV.Shared.Dtos;
 using AluguelRV.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +12,7 @@ namespace AluguelRV.Api;
 public static class User
 {
     [AllowAnonymous]
-    public static async Task<IResult> Login(IConfiguration configuration, IUserService userService, LoginRequest loginRequest)
+    public static async Task<IResult> Login(IConfiguration configuration, IUserService userService, LoginRequestDto loginRequest)
     {
         var response = new ResponseHandler();
 
@@ -23,13 +23,14 @@ public static class User
 
             return Api.Response(response);
         }
-        
+
         var claims = new[]
         {
-            new Claim(ClaimTypes.Sid, "teste"),
-            new Claim(ClaimTypes.NameIdentifier, "teste"),
-            new Claim(ClaimTypes.Email, "teste@teste.com")
+            new Claim("username", "teste"),
+            new Claim("role", "user")
         };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:Key")));
 
         var token = new JwtSecurityToken(
             issuer: configuration.GetValue<string>("Jwt:Issuer"),
@@ -37,7 +38,7 @@ public static class User
             claims: claims,
             expires: DateTime.UtcNow.AddDays(2),
             notBefore: DateTime.UtcNow,
-            signingCredentials: new (new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:Key"))), SecurityAlgorithms.HmacSha256)
+            signingCredentials: new (key, SecurityAlgorithms.HmacSha256)
             );
 
         response.Value = new JwtSecurityTokenHandler().WriteToken(token);

@@ -1,8 +1,6 @@
 ﻿using AluguelRV.Domain.Interfaces;
 using AluguelRV.Domain.Interfaces.Data;
-using AluguelRV.Domain.ViewModels;
-using Dapper;
-using System.Data;
+using AluguelRV.Shared.ViewModels;
 
 namespace AluguelRV.Repository.Data;
 public class ConfigData : IConfigData

@@ -1,7 +1,7 @@
 ﻿using AluguelRV.Domain.Dtos;
 using AluguelRV.Domain.Interfaces.Data;
 using AluguelRV.Domain.Interfaces.Services;
-using AluguelRV.Domain.ViewModels;
+using AluguelRV.Shared.ViewModels;
 using AutoMapper;
 
 namespace AluguelRV.Domain.Services;

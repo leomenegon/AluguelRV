@@ -18,7 +18,7 @@ public class ExpenseService
 
     public async Task GetExpenses()
     {
-        var result = await _http.GetFromJsonAsync<IEnumerable<ExpenseViewModel>>("expense");
+        var result = await _http.GetFromJsonAsync<IEnumerable<ExpenseViewModel>>("api/expense");
         if (result != null)
             Expenses = result;
     }

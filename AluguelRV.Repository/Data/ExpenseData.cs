@@ -1,7 +1,7 @@
 ﻿using AluguelRV.Domain.Models;
 using AluguelRV.Domain.Interfaces.Data;
 using AluguelRV.Domain.Interfaces;
-using AluguelRV.Domain.ViewModels;
+using AluguelRV.Shared.ViewModels;
 using AluguelRV.Domain.Dtos;
 using System.Data;
 using Dapper;

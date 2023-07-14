@@ -1,6 +1,6 @@
-﻿using AluguelRV.Domain.Dtos;
-using AluguelRV.Domain.Interfaces.Data;
+﻿using AluguelRV.Domain.Interfaces.Data;
 using AluguelRV.Domain.Interfaces.Services;
+using AluguelRV.Shared.Dtos;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -35,7 +35,7 @@ public class UserService : IUserService
         return response;
     }
 
-    public async Task<bool> ValidateCredentials(LoginRequest userDto)
+    public async Task<bool> ValidateCredentials(LoginRequestDto userDto)
     {
         var user = await _userData.GetByUsername(userDto.Username);
 

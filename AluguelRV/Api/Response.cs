@@ -1,4 +1,5 @@
 ﻿using AluguelRV.Domain;
+using System.Net;
 
 namespace AluguelRV.Api;
 
@@ -6,13 +7,12 @@ public static partial class Api
 {
     public static IResult Response(ResponseHandler response) => response.GetStatus() switch
     {
-        ResponseStatus.Ok => Results.Ok(response.Value),
-        ResponseStatus.Created => Results.Created(response.Message, response.Value),
-        ResponseStatus.BadRequest => Results.BadRequest(response),
-        ResponseStatus.Unauthorized => Results.Unauthorized(),
-        ResponseStatus.NotFound => Results.NotFound(response),
-        ResponseStatus.InternalError => Results.Problem(),
+        HttpStatusCode.OK => Results.Ok(response.Value),
+        HttpStatusCode.Created => Results.Created(response.Message, response.Value),
+        HttpStatusCode.BadRequest => Results.BadRequest(response),
+        HttpStatusCode.Unauthorized => Results.Unauthorized(),
+        HttpStatusCode.NotFound => Results.NotFound(response),
+        HttpStatusCode.InternalServerError => Results.Problem(),
         _ => Results.NoContent()
     };
-
 }

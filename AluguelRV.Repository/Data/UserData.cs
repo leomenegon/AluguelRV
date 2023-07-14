@@ -1,4 +1,4 @@
-﻿using AluguelRV.Domain.Dtos;
+﻿using AluguelRV.Shared.Dtos;
 using AluguelRV.Domain.Interfaces;
 using AluguelRV.Domain.Interfaces.Data;
 using AluguelRV.Domain.Models;

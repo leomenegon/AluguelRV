@@ -1,5 +1,5 @@
 ﻿using AluguelRV.Domain.Models;
-using AluguelRV.Domain.ViewModels;
+using AluguelRV.Shared.ViewModels;
 using AutoMapper;
 
 namespace AluguelRV.Domain.Mapper;
