@@ -1,4 +1,4 @@
-﻿using AluguelRV.Domain.Mapper;
+﻿using AluguelRV.Api.Mapper;
 
 namespace AluguelRV.Api.Configuration;
 

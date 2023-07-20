@@ -17,6 +17,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 builder.Services.AddScoped<RentService>();
 builder.Services.AddScoped<ExpenseService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<PersonService>();
 
 builder.Services.AddScoped<AuthenticationStateProvider, RVAuthProvider>();
 builder.Services.AddAuthorizationCore();

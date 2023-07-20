@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Data;
 
-namespace AluguelRV.Repository;
+namespace AluguelRV.Api.Dapper;
 public static class ListExtensions
 {
     public static DataTable ToDataTable<T>(this List<T> items)

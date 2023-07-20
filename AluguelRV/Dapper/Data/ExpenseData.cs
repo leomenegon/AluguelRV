@@ -1,18 +1,13 @@
 ﻿using AluguelRV.Domain.Models;
-using AluguelRV.Domain.Interfaces.Data;
-using AluguelRV.Domain.Interfaces;
 using AluguelRV.Shared.ViewModels;
-using AluguelRV.Domain.Dtos;
-using System.Data;
-using Dapper;
-using static Dapper.SqlMapper;
+using AluguelRV.Api.Dapper.DbAccess;
 
-namespace AluguelRV.Repository.Data;
-public class ExpenseData : IExpenseData
+namespace AluguelRV.Api.Dapper.Data;
+public class ExpenseData
 {
-    private readonly IDataAccess _db;
+    private readonly DataAccess _db;
 
-    public ExpenseData(IDataAccess db)
+    public ExpenseData(DataAccess db)
     {
         _db = db;
     }
@@ -42,25 +37,6 @@ public class ExpenseData : IExpenseData
     public Task<IEnumerable<PersonViewModel>> GetPersons(int expenseId)
     {
         return _db.LoadData<PersonViewModel, dynamic>("dbo.spExpense_GetPersons", new { ExpenseId = expenseId });
-    }
-
-    public Task Create(CreateExpenseRequest dto)
-    {
-        if (dto.PersonAmount == null)
-            dto.PersonAmount = new List<ExpensePersonRequest>();
-
-        var parameters = new
-        {
-            RentId = dto.RentId,
-            Name = dto.Name,
-            Type = dto.Type,
-            Description = dto.Description,
-            Amount = dto.Amount,
-            CustomDivision = dto.CustomDivision,
-            PersonAmount = dto.PersonAmount.ToDataTable().AsTableValuedParameter("dbo.PersonAmountType")
-        };
-
-        return _db.ExecuteCommand("dbo.spExpense_Insert", parameters);
     }
 
     public async Task<ExpenseDetailsViewModel?> GetDetailsById(int expenseId, int personId)

@@ -1,13 +1,12 @@
-﻿using AluguelRV.Domain.Interfaces;
-using AluguelRV.Domain.Interfaces.Data;
+﻿using AluguelRV.Api.Dapper.DbAccess;
 using AluguelRV.Shared.ViewModels;
 
-namespace AluguelRV.Repository.Data;
-public class ConfigData : IConfigData
+namespace AluguelRV.Api.Dapper.Data;
+public class ConfigData
 {
-    private readonly IDataAccess _db;
+    private readonly DataAccess _db;
 
-    public ConfigData(IDataAccess db)
+    public ConfigData(DataAccess db)
     {
         _db=db;
     }

@@ -1,9 +1,7 @@
-﻿using AluguelRV.Domain.Interfaces;
-using AluguelRV.Domain.Interfaces.Data;
+﻿using AluguelRV.Api.Dapper.Data;
+using AluguelRV.Api.Dapper.DbAccess;
 using AluguelRV.Domain.Interfaces.Services;
 using AluguelRV.Domain.Services;
-using AluguelRV.Repository.Data;
-using AluguelRV.Repository.DbAccess;
 
 namespace AluguelRV.Api.Configuration;
 
@@ -11,20 +9,20 @@ public static class DependencyInjection
 {
     public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services)
     {
-        services.AddSingleton<IDataAccess, DataAccess>();
+        services.AddSingleton<DataAccess>();
 
-        services.AddScoped<IConfigData, ConfigData>();
+        services.AddScoped<ConfigData>();
 
-        services.AddScoped<IUserData, UserData>();
+        services.AddScoped<UserData>();
         services.AddScoped<IUserService, UserService>();
 
-        services.AddScoped<IPersonData, PersonData>();
+        services.AddScoped<PersonData>();
         services.AddScoped<IPersonService, PersonService>();
 
-        services.AddScoped<IRentData, RentData>();
+        services.AddScoped<RentData>();
         services.AddScoped<IRentService, RentService>();
 
-        services.AddScoped<IExpenseData, ExpenseData>();
+        services.AddScoped<ExpenseData>();
         services.AddScoped<IExpenseService, ExpenseService>();
 
         return services;

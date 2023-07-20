@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using AluguelRV.Shared.Dtos;
+using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
 namespace AluguelRV.Client.Services;
@@ -21,5 +22,12 @@ public class ExpenseService
         var result = await _http.GetFromJsonAsync<IEnumerable<ExpenseViewModel>>("api/expense");
         if (result != null)
             Expenses = result;
+    }
+    
+    public async Task CreateExpense(CreateExpenseRequest model)
+    {
+        var request = await _http.PostAsJsonAsync("api/expense", model);
+
+        Console.WriteLine(request.ToString());
     }
 }

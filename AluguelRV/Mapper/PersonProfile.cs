@@ -2,7 +2,7 @@
 using AluguelRV.Shared.ViewModels;
 using AutoMapper;
 
-namespace AluguelRV.Domain.Mapper;
+namespace AluguelRV.Api.Mapper;
 public class PersonProfile : Profile
 {
 	public PersonProfile()

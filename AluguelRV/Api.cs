@@ -6,11 +6,11 @@ public static partial class Api
     {
         //User
         app.MapPost("api/login", User.Login);
-        app.MapPost("api/user/register", User.Register);
+        //app.MapPost("api/user/register", User.Register);
 
         //Person
         app.MapGet("api/person", Person.GetAll);
-        app.MapGet("/person/{id}", Person.GetById);
+        app.MapGet("api/person/{id}", Person.GetById);
 
         //Rent
         app.MapGet("api/rent", Rent.GetAll);
@@ -23,7 +23,7 @@ public static partial class Api
         app.MapGet("api/expense/{id}/details", Expense.GetDetails);
         app.MapGet("api/expense/person", Expense.GetByPerson);
         app.MapGet("api/expense/rent", Expense.GetByRent);
-        app.MapPost("api/expense", Expense.Create);
+        //app.MapPost("api/expense", Expense.Create);
 
         return app;
     }

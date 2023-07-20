@@ -1,22 +1,23 @@
 ﻿using AluguelRV.Domain;
 using AluguelRV.Shared.Dtos;
-using AluguelRV.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AluguelRV.Api.Dapper.Data;
+using System.Security.Cryptography;
 
 namespace AluguelRV.Api;
 
 public static class User
 {
     [AllowAnonymous]
-    public static async Task<IResult> Login(IConfiguration configuration, IUserService userService, LoginRequestDto loginRequest)
+    public static async Task<IResult> Login(IConfiguration configuration, UserData userData, LoginRequestDto loginRequest)
     {
         var response = new ResponseHandler();
 
-        if (!await userService.ValidateCredentials(loginRequest))
+        if (!await ValidateCredentials(userData, loginRequest))
         {
             response.SetAsNotFound();
             response.Message = "Login ou senha incorretos.";
@@ -38,7 +39,7 @@ public static class User
             claims: claims,
             expires: DateTime.UtcNow.AddDays(2),
             notBefore: DateTime.UtcNow,
-            signingCredentials: new (key, SecurityAlgorithms.HmacSha256)
+            signingCredentials: new(key, SecurityAlgorithms.HmacSha256)
             );
 
         response.Value = new JwtSecurityTokenHandler().WriteToken(token);
@@ -46,23 +47,36 @@ public static class User
         return await Task.FromResult(Api.Response(response));
     }
 
-    public static async Task<IResult> Register(IConfiguration configuration, IUserService userService, CreateUserRequest registerRequest)
+    //public static async Task<IResult> Register(IConfiguration configuration, IUserService userService, CreateUserRequest registerRequest)
+    //{
+    //    var response = await userService.Create(registerRequest);
+
+    //    if (!response.IsOk())
+    //    {
+    //        response.SetAsNotFound();
+    //        return Api.Response(response);
+    //    }
+
+    //    return await Login(
+    //        configuration,
+    //        userService,
+    //        new()
+    //        {
+    //            Username = registerRequest.Username,
+    //            Password = registerRequest.Password
+    //        });
+    //}
+
+    private static async Task<bool> ValidateCredentials(UserData userData, LoginRequestDto userDto)
     {
-        var response = await userService.Create(registerRequest);
+        var user = await userData.GetByUsername(userDto.Username);
 
-        if (!response.IsOk())
-        {
-            response.SetAsNotFound();
-            return Api.Response(response);
-        }
+        if (user == null)
+            return false;
 
-        return await Login(
-            configuration,
-            userService,
-            new()
-            {
-                Username = registerRequest.Username,
-                Password = registerRequest.Password
-            });
+        using var hmac = new HMACSHA512(user.Salt);
+        var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDto.Password));
+
+        return hash.SequenceEqual(user.Password);
     }
 }

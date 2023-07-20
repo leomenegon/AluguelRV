@@ -1,0 +1,131 @@
+﻿@page "/expenses/create"
+@using System.Text.Json;
+@using AluguelRV.Shared.Enums;
+@inject PersonService _personService
+@inject ExpenseService _expenseService
+
+<EditForm Model="@model" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="form-group p-1">
+        <label for="nome">Nome:</label>
+        <InputText id="nome" class="form-control" @bind-Value="model.Name" required />
+        <ValidationMessage For="@(() => model.Name)" />
+    </div>
+
+    <div class="form-group p-1">
+        <label>Tipo:</label>
+        <div class="form-check">
+            <InputRadioGroup @bind-Value="model.Type" required>
+                <div class="form-check-inline">
+                    <InputRadio Value="(ExpenseType.HouseBill)" />
+                    <label class="form-check-label">Contas da Casa</label>
+                </div>
+                <div class="form-check-inline">
+                    <InputRadio Value="(ExpenseType.Other)" />
+                    <label class="form-check-label">Outro</label>
+                </div>
+            </InputRadioGroup>
+        </div>
+        <ValidationMessage For="@(() => model.Type)" />
+    </div>
+
+    <div class="form-group p-1">
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" class="form-control" @bind="model.Description"></textarea>
+    </div>
+
+    <div class="form-group p-1">
+        <label for="valor">Valor:</label>
+        <InputNumber id="valor" class="form-control" @bind-Value="model.Amount" required />
+        <ValidationMessage For="@(() => model.Amount)" />
+    </div>
+
+    <div class="form-group p-1">
+        <label for="todos">Todos os moradores pagam igualmente</label>
+        <InputCheckbox id="todos" class="form-check-input" @bind-Value="everyonePays" />
+        <ValidationMessage For="@(() => everyonePays)" />
+    </div>
+
+    @if (!everyonePays)
+    {
+        <div class="form-group p-1">
+            <label for="todos">Divisão personalizada</label>
+            <InputCheckbox id="todos" class="form-check-input" @bind-Value="customDivision" />
+            <ValidationMessage For="@(() => everyonePays)" />
+        </div>
+
+        <div class="form-group p-1">
+            <label>Moradores:</label>
+            <div class="form-check">
+                @foreach (var person in personList)
+                {
+                    <p class="form-check pt-1">
+                        <input type="checkbox" class="form-check-input" @onchange="@(e => CheckboxChange(e, person.PersonId))" />
+                        <label class="form-check-label">@person.Name</label>
+                        @if (customDivision)
+                        {
+                            <InputNumber id="valor" class="form-control" @bind-Value="person.CustomAmount" />
+                        }
+                    </p>
+                }
+            </div>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary mt-4 mb-4 p-1 w-100">Enviar</button>
+</EditForm>
+
+@code {
+    private CreateExpenseRequest model = new();
+    private bool everyonePays = false;
+    private bool customDivision = false;
+    private List<ExpensePersonRequest> personList = new();
+    private List<int> selectedExpensePersonIds = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var persons = await _personService.GetPersons();
+
+        personList = persons.Select(p => new ExpensePersonRequest
+            {
+                PersonId = p.Id,
+                Name = p.Name
+            }).ToList();
+    }
+
+    private async void HandleSubmit()
+    {
+        if (everyonePays)
+        {
+            model.PersonAmount = null;
+            customDivision = false;
+        }
+        else
+        {
+            var selectedExpensePersons = personList.Where(p => selectedExpensePersonIds.Any(spId => spId == p.PersonId));
+
+            if (customDivision && selectedExpensePersons.Any(p => p.CustomAmount != null))
+            {
+                model.CustomDivision = true;
+                model.PersonAmount = selectedExpensePersons;
+            }
+            else
+            {
+                model.PersonAmount = selectedExpensePersons.Select(p => { p.CustomAmount = null; return p; });
+            }
+        }
+
+        await _expenseService.CreateExpense(model);
+    }
+
+    protected void CheckboxChange(ChangeEventArgs e, int personId)
+    {
+        if (e.Value != null && (bool)e.Value)
+            selectedExpensePersonIds.Add(personId);
+        else
+            selectedExpensePersonIds.RemoveAll(p => p == personId);
+
+        this.StateHasChanged();
+    }
+}

@@ -1,11 +1,10 @@
-﻿using AluguelRV.Domain.Interfaces;
-using Dapper;
-using Microsoft.Extensions.Configuration;
+﻿using Dapper;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace AluguelRV.Repository.DbAccess;
-public class DataAccess : IDataAccess
+namespace AluguelRV.Api.Dapper.DbAccess;
+
+public class DataAccess
 {
     private readonly IConfiguration _config;
 

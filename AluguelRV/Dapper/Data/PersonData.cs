@@ -1,13 +1,12 @@
 ﻿using AluguelRV.Domain.Models;
-using AluguelRV.Domain.Interfaces.Data;
-using AluguelRV.Domain.Interfaces;
+using AluguelRV.Api.Dapper.DbAccess;
 
-namespace AluguelRV.Repository.Data;
-public class PersonData : IPersonData
+namespace AluguelRV.Api.Dapper.Data;
+public class PersonData
 {
-    private readonly IDataAccess _db;
+    private readonly DataAccess _db;
 
-    public PersonData(IDataAccess db)
+    public PersonData(DataAccess db)
     {
         _db = db;
     }

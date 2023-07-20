@@ -1,14 +1,13 @@
 ﻿using AluguelRV.Domain.Models;
-using AluguelRV.Domain.Interfaces.Data;
-using AluguelRV.Domain.Interfaces;
 using AluguelRV.Shared.ViewModels;
+using AluguelRV.Api.Dapper.DbAccess;
 
-namespace AluguelRV.Repository.Data;
-public class RentData : IRentData
+namespace AluguelRV.Api.Dapper.Data;
+public class RentData
 {
-    private readonly IDataAccess _db;
+    private readonly DataAccess _db;
 
-    public RentData(IDataAccess db)
+    public RentData(DataAccess db)
     {
         _db = db;
     }
@@ -34,4 +33,3 @@ public class RentData : IRentData
             new { RentId = rentId, PersonId = personId });
     }
 }
-

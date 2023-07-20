@@ -1,4 +1,6 @@
-﻿namespace AluguelRV.Domain.Models;
+﻿using AluguelRV.Shared.Enums;
+
+namespace AluguelRV.Domain.Models;
 public class ExpenseModel
 {
     public int Id { get; set; }
@@ -9,10 +11,4 @@ public class ExpenseModel
     public decimal Amount { get; set; }
     public bool CustomDivision { get; set; }
     public bool Deleted { get; set; }
-}
-
-public enum ExpenseType
-{
-    HouseBill = 1,
-    Other = 2
 }
