@@ -1,66 +1,38 @@
 ﻿using AluguelRV.Api.Dapper.Data;
-using AluguelRV.Shared.ViewModels;
 using AluguelRV.Domain;
+using AluguelRV.Shared.ViewModels;
 using AutoMapper;
 
 namespace AluguelRV.Api;
 
 public static class Expense
 {
-    public static async Task<IResult> GetAll(IMapper mapper, ExpenseData expenseData)
+    public static async Task<IResult> GetAll(ExpenseData expenseData)
     {
-        var response = new ResponseHandler();
-
         var data = await expenseData.GetAll();
 
-        if (data.Any())
-            response.Value = mapper.Map<IEnumerable<ExpenseViewModel>>(data);
-        else
-            response.SetAsNotFound();
-
-        return Api.Response(response);
+        return Api.CheckNullAndRespond(data);
     }
 
-    public static async Task<IResult> GetById(IMapper mapper, ExpenseData expenseData, int id)
+    public static async Task<IResult> GetById(ExpenseData expenseData, int id)
     {
-        var response = new ResponseHandler();
-
         var data = await expenseData.GetById(id);
 
-        if (data != null)
-            response.Value = mapper.Map<ExpenseViewModel>(data);
-        else
-            response.SetAsNotFound();
-
-        return Api.Response(response);
+        return Api.CheckNullAndRespond(data);
     }
 
-    public static async Task<IResult> GetByPerson(IMapper mapper, ExpenseData expenseData, int rentId, int personId)
+    public static async Task<IResult> GetByPerson(ExpenseData expenseData, int rentId, int personId)
     {
-        var response = new ResponseHandler();
-
         var data = await expenseData.GetByPerson(rentId, personId);
 
-        if (data != null)
-            response.Value = data;
-        else
-            response.SetAsNotFound();
-
-        return Api.Response(response);
+        return Api.CheckNullAndRespond(data);
     }
 
-    public static async Task<IResult> GetByRent(IMapper mapper, ExpenseData expenseData, int rentId)
+    public static async Task<IResult> GetByRent(ExpenseData expenseData, int rentId)
     {
-        var response = new ResponseHandler();
-
         var data = await expenseData.GetByRent(rentId);
 
-        if (data.Any())
-            response.Value = mapper.Map<IEnumerable<ExpenseViewModel>>(data);
-        else
-            response.SetAsNotFound();
-
-        return Api.Response(response);
+        return Api.CheckNullAndRespond(data);
     }
 
     public static async Task<IResult> GetDetails(IMapper mapper, ExpenseData expenseData, int id)
@@ -76,7 +48,7 @@ public static class Expense
             return Api.Response(response);
         }
 
-        var persons = await expenseData.GetPersons(id);
+        var persons = await expenseData.GetExpensePersons(id);
 
         response.Value = new ExpenseDetailsResponseViewModel
         {

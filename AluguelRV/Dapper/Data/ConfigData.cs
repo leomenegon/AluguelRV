@@ -12,7 +12,7 @@ public class ConfigData
     }
     public async Task<string> GetByKey(string key)
     {
-        var query = await _db.LoadData<ConfigValueViewModel, dynamic>("dbo.spConfig_Get", new {Key = key});
+        var query = await _db.LoadData<ConfigValueViewModel, dynamic>("dbo.spConfig_Get", new { Key = key });
 
         if (query.Any())
             return query.First().Value;

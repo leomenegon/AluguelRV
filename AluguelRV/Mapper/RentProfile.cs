@@ -5,8 +5,8 @@ using AutoMapper;
 namespace AluguelRV.Api.Mapper;
 public class RentProfile : Profile
 {
-	public RentProfile()
-	{
-		CreateMap<RentModel, RentViewModel>();
-	}
+    public RentProfile()
+    {
+        CreateMap<RentModel, RentViewModel>();
+    }
 }

@@ -1,6 +1,5 @@
-﻿using AluguelRV.Domain.Models;
+﻿using AluguelRV.Api.Dapper.DbAccess;
 using AluguelRV.Shared.ViewModels;
-using AluguelRV.Api.Dapper.DbAccess;
 
 namespace AluguelRV.Api.Dapper.Data;
 public class RentData
@@ -12,9 +11,9 @@ public class RentData
         _db = db;
     }
 
-    public Task<IEnumerable<RentModel>> GetAll()
+    public Task<IEnumerable<RentViewModel>> GetAll()
     {
-        return _db.LoadData<RentModel, dynamic>("dbo.spRent_GetAll", new { });
+        return _db.LoadData<RentViewModel, dynamic>("dbo.spRent_GetAll", new { });
     }
 
     public async Task<RentRoomViewModel?> GetRoomAmountByPerson(int rentId, int personId)

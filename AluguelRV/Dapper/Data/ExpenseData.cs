@@ -1,6 +1,5 @@
-﻿using AluguelRV.Domain.Models;
+﻿using AluguelRV.Api.Dapper.DbAccess;
 using AluguelRV.Shared.ViewModels;
-using AluguelRV.Api.Dapper.DbAccess;
 
 namespace AluguelRV.Api.Dapper.Data;
 public class ExpenseData
@@ -12,14 +11,14 @@ public class ExpenseData
         _db = db;
     }
 
-    public Task<IEnumerable<ExpenseModel>> GetAll()
+    public Task<IEnumerable<ExpenseViewModel>> GetAll()
     {
-        return _db.LoadData<ExpenseModel, dynamic>("dbo.spExpense_GetAll", new { });
+        return _db.LoadData<ExpenseViewModel, dynamic>("dbo.spExpense_GetAll", new { });
     }
 
-    public async Task<ExpenseModel?> GetById(int id)
+    public async Task<ExpenseViewModel?> GetById(int id)
     {
-        var query = await _db.LoadData<ExpenseModel, dynamic>("dbo.spExpense_Get", new { Id = id });
+        var query = await _db.LoadData<ExpenseViewModel, dynamic>("dbo.spExpense_Get", new { Id = id });
 
         return query.FirstOrDefault();
     }
@@ -34,7 +33,7 @@ public class ExpenseData
         return _db.LoadData<ExpenseViewModel, dynamic>("dbo.spExpense_GetByRent", new { RentId = rentId });
     }
 
-    public Task<IEnumerable<PersonViewModel>> GetPersons(int expenseId)
+    public Task<IEnumerable<PersonViewModel>> GetExpensePersons(int expenseId)
     {
         return _db.LoadData<PersonViewModel, dynamic>("dbo.spExpense_GetPersons", new { ExpenseId = expenseId });
     }

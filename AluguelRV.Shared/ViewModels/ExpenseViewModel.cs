@@ -1,10 +1,12 @@
-﻿namespace AluguelRV.Shared.ViewModels;
+﻿using AluguelRV.Shared.Enums;
+
+namespace AluguelRV.Shared.ViewModels;
 public record ExpenseViewModel
 {
     public int Id { get; set; }
     public int RentId { get; set; }
     public string? Name { get; set; }
-    public string? Type { get; set; }
+    public ExpenseType Type { get; set; }
     public string? Description { get; set; }
     public decimal Amount { get; set; }
     public bool CustomDivision { get; set; }

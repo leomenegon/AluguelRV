@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AluguelRV.Domain.Models;
+﻿namespace AluguelRV.Domain.Models;
 public class UserModel
 {
     public int Id { get; set; }

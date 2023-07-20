@@ -1,5 +1,5 @@
-﻿using AluguelRV.Domain.Models;
-using AluguelRV.Api.Dapper.DbAccess;
+﻿using AluguelRV.Api.Dapper.DbAccess;
+using AluguelRV.Shared.ViewModels;
 
 namespace AluguelRV.Api.Dapper.Data;
 public class PersonData
@@ -11,15 +11,15 @@ public class PersonData
         _db = db;
     }
 
-    public Task<IEnumerable<PersonModel>> GetAll()
+    public Task<IEnumerable<PersonViewModel>> GetAll()
     {
-        return _db.LoadData<PersonModel, dynamic>("dbo.spPerson_GetAll", new { });
+        return _db.LoadData<PersonViewModel, dynamic>("dbo.spPerson_GetAll", new { });
     }
 
-    public async Task<PersonModel?> GetById(int id)
+    public async Task<PersonViewModel?> GetById(int id)
     {
-        var query = await _db.LoadData<PersonModel, dynamic>("dbo.spPerson_Get", new { Id = id });
+        var query = await _db.LoadData<PersonViewModel, dynamic>("dbo.spPerson_Get", new { Id = id });
 
         return query.FirstOrDefault();
-    }   
+    }
 }

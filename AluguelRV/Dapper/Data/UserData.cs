@@ -1,6 +1,6 @@
-﻿using AluguelRV.Shared.Dtos;
+﻿using AluguelRV.Api.Dapper.DbAccess;
 using AluguelRV.Domain.Models;
-using AluguelRV.Api.Dapper.DbAccess;
+using AluguelRV.Shared.Dtos;
 
 namespace AluguelRV.Api.Dapper.Data;
 public class UserData
