@@ -7,6 +7,6 @@ public class ExpenseProfile : Profile
 {
     public ExpenseProfile()
     {
-        CreateMap<ExpenseModel, ExpenseViewModel>();
+        CreateMap<Domain.Models.Expense, ExpenseViewModel>();
     }
 }

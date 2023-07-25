@@ -1,5 +1,7 @@
 ﻿using AluguelRV.Api.Dapper.Data;
 using AluguelRV.Domain;
+using AluguelRV.Domain.Services;
+using AluguelRV.Shared.Dtos;
 using AluguelRV.Shared.ViewModels;
 using AutoMapper;
 
@@ -59,8 +61,10 @@ public static class Expense
         return Api.Response(response);
     }
 
-    //public static async Task<IResult> Create(CreateExpenseRequest request)
-    //{
+    public static async Task<IResult> Create(ExpenseService service, CreateExpenseRequest request)
+    {
+        var response = await service.Create(request);
 
-    //}
+        return Api.Response(response);
+    }
 }

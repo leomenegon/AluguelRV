@@ -1,11 +1,9 @@
-﻿using AluguelRV.Domain.Interfaces.Services;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace AluguelRV.Domain.Services;
-public class UserService : IUserService
+public class UserService
 {
-
     public UserService()
     {
         
@@ -32,7 +30,7 @@ public class UserService : IUserService
     //    return response;
     //}
 
-    public void Hash(string password, out byte[] hash, out byte[] salt)
+    private void Hash(string password, out byte[] hash, out byte[] salt)
     {
         using var hmac = new HMACSHA512();
 

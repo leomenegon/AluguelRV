@@ -23,7 +23,7 @@ public static partial class Api
         app.MapGet("api/expense/{id}/details", Expense.GetDetails);
         app.MapGet("api/expense/person", Expense.GetByPerson);
         app.MapGet("api/expense/rent", Expense.GetByRent);
-        //app.MapPost("api/expense", Expense.Create);
+        app.MapPost("api/expense", Expense.Create);
 
         return app;
     }

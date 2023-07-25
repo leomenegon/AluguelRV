@@ -1,5 +1,5 @@
 ﻿namespace AluguelRV.Domain.Models;
-public class UserModel
+public class User
 {
     public int Id { get; set; }
     public string Username { get; set; }
@@ -7,4 +7,5 @@ public class UserModel
     public byte[] Salt { get; set; }
     public int PersonId { get; set; }
     public bool Deleted { get; set; }
+    public virtual Person Person { get; set; } = null!;
 }

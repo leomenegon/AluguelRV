@@ -6,7 +6,9 @@
     [Type] TINYINT NOT NULL DEFAULT 1, 
     [Description] NVARCHAR(1000) NULL, 
     [Amount] SMALLMONEY NOT NULL DEFAULT 0, 
-    [CustomDivsion] BIT NOT NULL DEFAULT 0, 
-    [Deleted] BIT NOT NULL DEFAULT 0, 
+    [CustomDivision] BIT NOT NULL DEFAULT 0,
+    [CreatedAt] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+    [Deleted] BIT NOT NULL DEFAULT 0,
+    [Timestamp] DATETIME2 NULL DEFAULT GETUTCDATE(),
     CONSTRAINT [FK_Expense_Rent] FOREIGN KEY ([RentId]) REFERENCES [Rent]([Id])
 )

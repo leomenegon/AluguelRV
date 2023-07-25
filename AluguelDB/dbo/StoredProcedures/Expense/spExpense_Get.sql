@@ -5,14 +5,14 @@ AS
 BEGIN
 	IF (@IncludeDeleted = 0)
 	BEGIN
-		SELECT [Id], [RentId], [Name], [Type], [Description], [Amount], [CustomDivsion], [Deleted]
+		SELECT [Id], [RentId], [Name], [Type], [Description], [Amount], [CustomDivision], [Deleted]
 		FROM dbo.Expense
 		WHERE [Id] = @Id
 		AND [Deleted] = 0	
 	END
 	ELSE
 	BEGIN
-		SELECT [Id], [RentId], [Name], [Type], [Description], [Amount], [CustomDivsion], [Deleted]
+		SELECT [Id], [RentId], [Name], [Type], [Description], [Amount], [CustomDivision], [Deleted]
 		FROM dbo.Expense
 		WHERE [Id] = @Id
 	END

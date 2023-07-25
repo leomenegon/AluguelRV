@@ -7,6 +7,6 @@ public class RentProfile : Profile
 {
     public RentProfile()
     {
-        CreateMap<RentModel, RentViewModel>();
+        CreateMap<Domain.Models.Rent, RentViewModel>();
     }
 }

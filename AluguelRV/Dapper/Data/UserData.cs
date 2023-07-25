@@ -12,14 +12,14 @@ public class UserData
         _db = db;
     }
 
-    public Task<UserModel?> GetById(int id)
+    public Task<Domain.Models.User?> GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<UserModel?> GetByUsername(string username)
+    public async Task<Domain.Models.User?> GetByUsername(string username)
     {
-        var query = await _db.LoadData<UserModel, dynamic>("dbo.spUser_GetByUsername", new { Username = username });
+        var query = await _db.LoadData<Domain.Models.User, dynamic>("dbo.spUser_GetByUsername", new { Username = username });
 
         return query.FirstOrDefault();
     }

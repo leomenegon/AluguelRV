@@ -1,5 +1,5 @@
 ﻿namespace AluguelRV.Domain.Models;
-public class RentModel
+public class Rent
 {
     public int Id { get; set; }
     public string? Name { get; set; }
@@ -9,4 +9,7 @@ public class RentModel
     public decimal Percentage { get; set; }
     public bool Closed { get; set; }
     public bool Deleted { get; set; }
+    public DateTime? CreatedAt { get; set; }
+    public DateTime? Timestamp { get; set; }
+    public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 }

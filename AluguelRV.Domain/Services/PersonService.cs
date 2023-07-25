@@ -1,8 +1,7 @@
-﻿using AluguelRV.Domain.Interfaces.Services;
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace AluguelRV.Domain.Services;
-public class PersonService : IPersonService
+public class PersonService
 {
     private readonly IMapper _mapper;
 

@@ -1,7 +1,7 @@
 ﻿using AluguelRV.Shared.Enums;
 
 namespace AluguelRV.Domain.Models;
-public class ExpenseModel
+public class Expense
 {
     public int Id { get; set; }
     public int RentId { get; set; }
@@ -10,5 +10,8 @@ public class ExpenseModel
     public string? Description { get; set; }
     public decimal Amount { get; set; }
     public bool CustomDivision { get; set; }
+    public DateTime CreatedAt { get; set; }
     public bool Deleted { get; set; }
+    public DateTime? Timestamp { get; set; }
+    public virtual Rent Rent { get; set; } = null!;
 }

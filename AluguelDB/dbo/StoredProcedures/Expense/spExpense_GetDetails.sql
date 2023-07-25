@@ -8,7 +8,7 @@ BEGIN
 	DECLARE @IsCustom BIT
 	DECLARE @CustomAmount SMALLMONEY
 
-	SELECT TOP (1) @IsCustom = [CustomDivsion]
+	SELECT TOP (1) @IsCustom = [CustomDivision]
     FROM dbo.Expense
 	WHERE [Id] = @Id
 	AND [Deleted] = 0

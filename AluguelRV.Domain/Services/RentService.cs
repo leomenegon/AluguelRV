@@ -1,8 +1,7 @@
-﻿using AluguelRV.Domain.Interfaces.Services;
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace AluguelRV.Domain.Services;
-public class RentService : IRentService
+public class RentService
 {
     private readonly IMapper _mapper;
     private ResponseHandler _response;

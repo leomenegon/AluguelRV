@@ -7,6 +7,6 @@ public class PersonProfile : Profile
 {
     public PersonProfile()
     {
-        CreateMap<PersonModel, PersonViewModel>();
+        CreateMap<Domain.Models.Person, PersonViewModel>();
     }
 }
