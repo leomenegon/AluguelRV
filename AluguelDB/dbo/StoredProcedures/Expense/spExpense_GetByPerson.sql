@@ -9,7 +9,7 @@ BEGIN
 	DECLARE @CustomAmount SMALLMONEY
 
 	INSERT INTO @ExpenseIdList
-	SELECT e.[Id], e.[CustomDivsion]
+	SELECT e.[Id], e.[CustomDivision]
 	FROM dbo.ExpensePerson ep
 	INNER JOIN dbo.Expense e ON ep.ExpenseId = e.[Id]
 	WHERE ep.PersonId = @PersonId

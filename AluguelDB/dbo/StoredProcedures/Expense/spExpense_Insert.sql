@@ -10,7 +10,7 @@ AS
 BEGIN
 
 INSERT INTO dbo.Expense
-([RentId], [Name], [Type], [Description], [Amount], [CustomDivsion])
+([RentId], [Name], [Type], [Description], [Amount], [CustomDivision])
 VALUES
 (@RentId, @Name, @Type, @Description, @Amount, @CustomDivision)
 

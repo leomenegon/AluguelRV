@@ -1,15 +1,21 @@
 using AluguelRV.Api;
 using AluguelRV.Api.Configuration;
+using AluguelRV.Core.Data.DbAccess;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(Authentication.Options);
 
-builder.Services.ConfigureDependencyInjection();
-builder.Services.ConfigureAutoMapper();
+builder.Services.AddDbContext<AluguelContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+});
 
-builder.Services.ConfigureAuthentication(builder);
+builder.Services.ConfigureDependencyInjection();
+
+//builder.Services.ConfigureAuthentication(builder);
 
 builder.Services.AddCors();
 
@@ -30,8 +36,8 @@ app.UseCors(c =>
 
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
-app.UseAuthentication();
+//app.UseAuthorization();
+//app.UseAuthentication();
 
 app.ConfigureApi();
 

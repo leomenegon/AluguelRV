@@ -1,0 +1,23 @@
+﻿@inject NavigationManager _navigation
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? AuthenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthenticationState != null)
+        {
+            var authenticationState = await AuthenticationState;
+
+            if (authenticationState.User?.Identity == null || !authenticationState.User.Identity.IsAuthenticated)
+            {
+                var returnUrl = _navigation.ToBaseRelativePath(_navigation.Uri);
+
+                var query = string.IsNullOrWhiteSpace(returnUrl) ? string.Empty : $"?returnUrl={returnUrl}";
+
+                _navigation.NavigateTo($"/login{query}");
+            }
+        }
+    }
+}

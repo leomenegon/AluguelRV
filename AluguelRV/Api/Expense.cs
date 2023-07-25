@@ -1,20 +1,69 @@
-﻿using AluguelRV.Domain.Dtos;
-using AluguelRV.Domain.Interfaces.Services;
+﻿using AluguelRV.Api.Dapper.Data;
+using AluguelRV.Core.Services;
+using AluguelRV.Core;
+using AluguelRV.Shared.Dtos;
+using AluguelRV.Shared.ViewModels;
 
-namespace AluguelRV.Api;
+namespace AluguelRV.Api.Api;
 
 public static class Expense
 {
-    public static async Task<IResult> GetAll(IExpenseService expenseService)
-        => Api.Response(await expenseService.GetAll());
-    public static async Task<IResult> GetById(int id, IExpenseService expenseService)
-        => Api.Response(await expenseService.GetById(id));
-    public static async Task<IResult> GetByPerson(int rentId, int personId, IExpenseService expenseService)
-        => Api.Response(await expenseService.GetByPerson(rentId, personId));
-    public static async Task<IResult> GetByRent(int rentId, IExpenseService expenseService)
-        => Api.Response(await expenseService.GetByRent(rentId));
-    public static async Task<IResult> GetDetails(int id, IExpenseService expenseService)
-        => Api.Response(await expenseService.GetDetails(id));
-    public static async Task<IResult> Create(CreateExpenseRequest request, IExpenseService expenseService)
-        => Api.Response(await expenseService.Create(request));
+    public static async Task<IResult> GetAll(ExpenseData expenseData)
+    {
+        var data = await expenseData.GetAll();
+
+        return WebApi.CheckNullAndRespond(data);
+    }
+
+    public static async Task<IResult> GetById(ExpenseData expenseData, int id)
+    {
+        var data = await expenseData.GetById(id);
+
+        return WebApi.CheckNullAndRespond(data);
+    }
+
+    public static async Task<IResult> GetByPerson(ExpenseData expenseData, int rentId, int personId)
+    {
+        var data = await expenseData.GetByPerson(rentId, personId);
+
+        return WebApi.CheckNullAndRespond(data);
+    }
+
+    public static async Task<IResult> GetByRent(ExpenseData expenseData, int rentId)
+    {
+        var data = await expenseData.GetByRent(rentId);
+
+        return WebApi.CheckNullAndRespond(data);
+    }
+
+    public static async Task<IResult> GetDetails(ExpenseData expenseData, int id)
+    {
+        var response = new ResponseHandler();
+
+        var expense = await expenseData.GetDetailsById(id, 1);
+
+        if (expense == null)
+        {
+            response.SetAsNotFound();
+
+            return WebApi.Response(response);
+        }
+
+        var persons = await expenseData.GetExpensePersons(id);
+
+        response.Value = new ExpenseDetailsResponseViewModel
+        {
+            Expense = expense,
+            Persons = persons
+        };
+
+        return WebApi.Response(response);
+    }
+
+    public static async Task<IResult> Create(ExpenseService service, CreateExpenseRequest request)
+    {
+        var response = await service.Create(request);
+
+        return WebApi.Response(response);
+    }
 }

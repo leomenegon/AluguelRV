@@ -1,0 +1,33 @@
+﻿@page "/"
+@attribute [Authorize]
+@inject RentService _rentService
+
+<PageTitle></PageTitle>
+<h3>Dashboard</h3>
+
+@if(mainRent == null)
+{
+    <h4>Carregando...</h4>
+}
+else
+{
+    <div>
+        <p>
+            @mainRent.Year / @mainRent.Month
+            -
+            @mainRent.Name
+            -
+            @mainRent.Amount.ToString("R$ 0,0.00")
+        </p>
+    </div>
+}
+
+@code {
+    RentViewModel? mainRent = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await _rentService.GetRents();
+        mainRent = _rentService.Rent;
+    }
+}

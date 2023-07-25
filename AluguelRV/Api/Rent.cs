@@ -1,13 +1,53 @@
-﻿using AluguelRV.Domain.Interfaces.Services;
+﻿using AluguelRV.Api.Dapper.Data;
+using AluguelRV.Core;
+using AluguelRV.Shared.ViewModels;
 
-namespace AluguelRV.Api;
+namespace AluguelRV.Api.Api;
 
 public static class Rent
 {
-    public static async Task<IResult> GetAll(IRentService rentService)
-        => Api.Response(await rentService.GetAll());
-    public static async Task<IResult> GetRoomAmountByPerson(int rentId, int personId, IRentService rentService)
-        => Api.Response(await rentService.GetRoomAmountByPerson(rentId, personId));
-    public static async Task<IResult> GetPersonRent(int rentId, int personId, IRentService rentService)
-        => Api.Response(await rentService.GetPersonRent(rentId, personId));
+    public static async Task<IResult> GetAll(ConfigData configData, RentData rentData)
+    {
+        var response = new ResponseHandler();
+
+        var data = await rentData.GetAll();
+        var def = await configData.GetByKey("DEF_RENT");
+
+        if (data.Any())
+            response.Value = new RentListViewModel
+            {
+                List = data,
+                DefaultRent = !string.IsNullOrWhiteSpace(def) ? int.Parse(def) : 0
+            };
+        else
+            response.SetAsNotFound();
+
+        return WebApi.Response(response);
+    }
+
+    public static async Task<IResult> GetRoomAmountByPerson(RentData rentData, int rentId, int personId)
+    {
+        var data = await rentData.GetRoomAmountByPerson(rentId, personId);
+
+        return WebApi.CheckNullAndRespond(data);
+    }
+
+    public static async Task<IResult> GetPersonRent(ConfigData configData, RentData rentData, int rentId, int personId)
+    {
+        var response = new ResponseHandler();
+
+        var data = await rentData.GetPersonRent(personId, rentId);
+        var def = await configData.GetByKey("DEF_RENT");
+
+        if (data.Any())
+            response.Value = new PersonRentListViewModel
+            {
+                List = data,
+                DefaultRent = !string.IsNullOrWhiteSpace(def) ? int.Parse(def) : 0
+            };
+        else
+            response.SetAsNotFound();
+
+        return WebApi.Response(response);
+    }
 }

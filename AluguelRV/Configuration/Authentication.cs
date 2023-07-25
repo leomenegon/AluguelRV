@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -54,13 +53,13 @@ public static class Authentication
         });
 
         services.AddAuthorization(
-            //options =>
-            //{
-            //options.FallbackPolicy = new AuthorizationPolicyBuilder()
-            //    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-            //    .RequireAuthenticatedUser()
-            //    .Build();
-            //}
+        //options =>
+        //{
+        //options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        //    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+        //    .RequireAuthenticatedUser()
+        //    .Build();
+        //}
         );
 
         return services;

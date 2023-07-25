@@ -1,9 +1,8 @@
-﻿using AluguelRV.Domain.Interfaces;
-using AluguelRV.Domain.Interfaces.Data;
-using AluguelRV.Domain.Interfaces.Services;
-using AluguelRV.Domain.Services;
-using AluguelRV.Repository.Data;
-using AluguelRV.Repository.DbAccess;
+﻿using AluguelRV.Api.Dapper.Data;
+using AluguelRV.Api.Dapper.DbAccess;
+using AluguelRV.Core.Data;
+using AluguelRV.Core.Interfaces.Repositories;
+using AluguelRV.Core.Services;
 
 namespace AluguelRV.Api.Configuration;
 
@@ -11,21 +10,23 @@ public static class DependencyInjection
 {
     public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services)
     {
-        services.AddSingleton<IDataAccess, DataAccess>();
+        services.AddSingleton<DataAccess>();
 
-        services.AddScoped<IConfigData, ConfigData>();
+        services.AddTransient(typeof(IBaseRepository<>), typeof(Repository<>));
 
-        services.AddScoped<IUserData, UserData>();
-        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ConfigData>();
 
-        services.AddScoped<IPersonData, PersonData>();
-        services.AddScoped<IPersonService, PersonService>();
+        services.AddScoped<UserData>();
+        services.AddScoped<UserService>();
 
-        services.AddScoped<IRentData, RentData>();
-        services.AddScoped<IRentService, RentService>();
+        services.AddScoped<PersonData>();
+        services.AddScoped<PersonService>();
 
-        services.AddScoped<IExpenseData, ExpenseData>();
-        services.AddScoped<IExpenseService, ExpenseService>();
+        services.AddScoped<RentData>();
+        services.AddScoped<RentService>();
+
+        services.AddScoped<ExpenseData>();
+        services.AddScoped<ExpenseService>();
 
         return services;
     }

@@ -7,15 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.143" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.23.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.32.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AluguelRV.Domain\AluguelRV.Domain.csproj" />
-    <ProjectReference Include="..\AluguelRV.Repository\AluguelRV.Repository.csproj" />
+    <ProjectReference Include="..\AluguelRV.Core\AluguelRV.Core.csproj" />
+    <ProjectReference Include="..\AluguelRV.Shared\AluguelRV.Shared.csproj" />
   </ItemGroup>
 
 </Project>
