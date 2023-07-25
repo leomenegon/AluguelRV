@@ -1,11 +1,10 @@
 ﻿using AluguelRV.Api.Dapper.Data;
-using AluguelRV.Domain;
-using AluguelRV.Domain.Services;
+using AluguelRV.Core.Services;
+using AluguelRV.Core;
 using AluguelRV.Shared.Dtos;
 using AluguelRV.Shared.ViewModels;
-using AutoMapper;
 
-namespace AluguelRV.Api;
+namespace AluguelRV.Api.Api;
 
 public static class Expense
 {
@@ -13,31 +12,31 @@ public static class Expense
     {
         var data = await expenseData.GetAll();
 
-        return Api.CheckNullAndRespond(data);
+        return WebApi.CheckNullAndRespond(data);
     }
 
     public static async Task<IResult> GetById(ExpenseData expenseData, int id)
     {
         var data = await expenseData.GetById(id);
 
-        return Api.CheckNullAndRespond(data);
+        return WebApi.CheckNullAndRespond(data);
     }
 
     public static async Task<IResult> GetByPerson(ExpenseData expenseData, int rentId, int personId)
     {
         var data = await expenseData.GetByPerson(rentId, personId);
 
-        return Api.CheckNullAndRespond(data);
+        return WebApi.CheckNullAndRespond(data);
     }
 
     public static async Task<IResult> GetByRent(ExpenseData expenseData, int rentId)
     {
         var data = await expenseData.GetByRent(rentId);
 
-        return Api.CheckNullAndRespond(data);
+        return WebApi.CheckNullAndRespond(data);
     }
 
-    public static async Task<IResult> GetDetails(IMapper mapper, ExpenseData expenseData, int id)
+    public static async Task<IResult> GetDetails(ExpenseData expenseData, int id)
     {
         var response = new ResponseHandler();
 
@@ -47,7 +46,7 @@ public static class Expense
         {
             response.SetAsNotFound();
 
-            return Api.Response(response);
+            return WebApi.Response(response);
         }
 
         var persons = await expenseData.GetExpensePersons(id);
@@ -55,16 +54,16 @@ public static class Expense
         response.Value = new ExpenseDetailsResponseViewModel
         {
             Expense = expense,
-            Persons = mapper.Map<IEnumerable<PersonViewModel>>(persons)
+            Persons = persons
         };
 
-        return Api.Response(response);
+        return WebApi.Response(response);
     }
 
     public static async Task<IResult> Create(ExpenseService service, CreateExpenseRequest request)
     {
         var response = await service.Create(request);
 
-        return Api.Response(response);
+        return WebApi.Response(response);
     }
 }

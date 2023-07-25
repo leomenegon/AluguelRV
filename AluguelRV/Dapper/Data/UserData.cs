@@ -1,5 +1,4 @@
 ﻿using AluguelRV.Api.Dapper.DbAccess;
-using AluguelRV.Domain.Models;
 using AluguelRV.Shared.Dtos;
 
 namespace AluguelRV.Api.Dapper.Data;
@@ -12,14 +11,14 @@ public class UserData
         _db = db;
     }
 
-    public Task<Domain.Models.User?> GetById(int id)
+    public Task<Core.Models.User?> GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Domain.Models.User?> GetByUsername(string username)
+    public async Task<Core.Models.User?> GetByUsername(string username)
     {
-        var query = await _db.LoadData<Domain.Models.User, dynamic>("dbo.spUser_GetByUsername", new { Username = username });
+        var query = await _db.LoadData<Core.Models.User, dynamic>("dbo.spUser_GetByUsername", new { Username = username });
 
         return query.FirstOrDefault();
     }

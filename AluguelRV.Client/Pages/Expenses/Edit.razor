@@ -115,7 +115,7 @@
                 model.PersonAmount = selectedExpensePersons.Select(p => { p.CustomAmount = null; return p; });
             }
         }
-
+        model.RentId = 1; // TODO: select com alugueis
         await _expenseService.CreateExpense(model);
     }
 

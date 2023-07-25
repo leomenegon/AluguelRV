@@ -1,5 +1,5 @@
 ﻿using AluguelRV.Api.Dapper.Data;
-using AluguelRV.Domain;
+using AluguelRV.Core;
 using AluguelRV.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AluguelRV.Api;
+namespace AluguelRV.Api.Api;
 
 public static class User
 {
@@ -22,7 +22,7 @@ public static class User
             response.SetAsNotFound();
             response.Message = "Login ou senha incorretos.";
 
-            return Api.Response(response);
+            return WebApi.Response(response);
         }
 
         var claims = new[]
@@ -44,7 +44,7 @@ public static class User
 
         response.Value = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return await Task.FromResult(Api.Response(response));
+        return await Task.FromResult(WebApi.Response(response));
     }
 
     //public static async Task<IResult> Register(IConfiguration configuration, IUserService userService, CreateUserRequest registerRequest)

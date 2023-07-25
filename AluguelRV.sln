@@ -16,12 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AluguelDB", "AluguelDB\AluguelDB.sqlproj", "{B9AF9E0A-500D-4A7F-817C-830D177FD987}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AluguelRV.Domain", "AluguelRV.Domain\AluguelRV.Domain.csproj", "{332853AD-10D6-45AF-B9A8-46C4E9CA3585}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AluguelRV.Repository", "AluguelRV.Repository\AluguelRV.Repository.csproj", "{C824CD6A-387B-4440-9FB7-661C333001A2}"
-	ProjectSection(ProjectDependencies) = postProject
-		{332853AD-10D6-45AF-B9A8-46C4E9CA3585} = {332853AD-10D6-45AF-B9A8-46C4E9CA3585}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AluguelRV.Core", "AluguelRV.Core\AluguelRV.Core.csproj", "{332853AD-10D6-45AF-B9A8-46C4E9CA3585}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AluguelRV.Client", "AluguelRV.Client\AluguelRV.Client.csproj", "{F5AC3DD2-17A3-4F2E-B2E2-B6D564C66AD1}"
 	ProjectSection(ProjectDependencies) = postProject

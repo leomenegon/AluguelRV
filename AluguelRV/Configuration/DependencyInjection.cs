@@ -1,8 +1,8 @@
 ﻿using AluguelRV.Api.Dapper.Data;
 using AluguelRV.Api.Dapper.DbAccess;
-using AluguelRV.Domain.Interfaces.Repositories;
-using AluguelRV.Domain.Services;
-using AluguelRV.Repository.Data;
+using AluguelRV.Core.Data;
+using AluguelRV.Core.Interfaces.Repositories;
+using AluguelRV.Core.Services;
 
 namespace AluguelRV.Api.Configuration;
 

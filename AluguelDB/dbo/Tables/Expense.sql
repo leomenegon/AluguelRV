@@ -6,6 +6,7 @@
     [Type] TINYINT NOT NULL DEFAULT 1, 
     [Description] NVARCHAR(1000) NULL, 
     [Amount] SMALLMONEY NOT NULL DEFAULT 0, 
+    [General] BIT NOT NULL DEFAULT 1,
     [CustomDivision] BIT NOT NULL DEFAULT 0,
     [CreatedAt] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
     [Deleted] BIT NOT NULL DEFAULT 0,

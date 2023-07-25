@@ -1,9 +1,9 @@
-﻿using AluguelRV.Domain;
+﻿using AluguelRV.Core;
 using System.Net;
 
 namespace AluguelRV.Api;
 
-public static partial class Api
+public static partial class WebApi
 {
     public static IResult CheckNullAndRespond(object? obj)
     {

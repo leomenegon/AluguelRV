@@ -1,6 +1,6 @@
 using AluguelRV.Api;
 using AluguelRV.Api.Configuration;
-using AluguelRV.Repository.DbAccess;
+using AluguelRV.Core.Data.DbAccess;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +14,6 @@ builder.Services.AddDbContext<AluguelContext>(options =>
 });
 
 builder.Services.ConfigureDependencyInjection();
-builder.Services.ConfigureAutoMapper();
 
 //builder.Services.ConfigureAuthentication(builder);
 

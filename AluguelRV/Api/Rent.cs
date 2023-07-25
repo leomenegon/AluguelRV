@@ -1,8 +1,8 @@
 ﻿using AluguelRV.Api.Dapper.Data;
-using AluguelRV.Domain;
+using AluguelRV.Core;
 using AluguelRV.Shared.ViewModels;
 
-namespace AluguelRV.Api;
+namespace AluguelRV.Api.Api;
 
 public static class Rent
 {
@@ -22,14 +22,14 @@ public static class Rent
         else
             response.SetAsNotFound();
 
-        return Api.Response(response);
+        return WebApi.Response(response);
     }
 
     public static async Task<IResult> GetRoomAmountByPerson(RentData rentData, int rentId, int personId)
     {
         var data = await rentData.GetRoomAmountByPerson(rentId, personId);
 
-        return Api.CheckNullAndRespond(data);
+        return WebApi.CheckNullAndRespond(data);
     }
 
     public static async Task<IResult> GetPersonRent(ConfigData configData, RentData rentData, int rentId, int personId)
@@ -48,6 +48,6 @@ public static class Rent
         else
             response.SetAsNotFound();
 
-        return Api.Response(response);
+        return WebApi.Response(response);
     }
 }

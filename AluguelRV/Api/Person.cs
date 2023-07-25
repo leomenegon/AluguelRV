@@ -1,6 +1,6 @@
 ﻿using AluguelRV.Api.Dapper.Data;
 
-namespace AluguelRV.Api;
+namespace AluguelRV.Api.Api;
 
 public static class Person
 {
@@ -8,13 +8,13 @@ public static class Person
     {
         var data = await personData.GetAll();
 
-        return Api.CheckNullAndRespond(data);
+        return WebApi.CheckNullAndRespond(data);
     }
 
     public static async Task<IResult> GetById(PersonData personData, int id)
     {
         var data = await personData.GetById(id);
 
-        return Api.CheckNullAndRespond(data);
+        return WebApi.CheckNullAndRespond(data);
     }
 }
