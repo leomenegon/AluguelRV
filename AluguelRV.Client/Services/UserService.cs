@@ -1,5 +1,4 @@
 ﻿using AluguelRV.Shared.Dtos;
-using AluguelRV.Shared.ViewModels;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
@@ -67,5 +66,13 @@ public class UserService
 
             _navigation.NavigateTo("/");
         }
+    }
+
+    public async Task Logout()
+    {
+        await _localStorage.RemoveItemAsync("token");
+        _http.DefaultRequestHeaders.Authorization = null;
+
+        _navigation.NavigateTo("/login");
     }
 }

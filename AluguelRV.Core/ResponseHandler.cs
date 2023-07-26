@@ -44,6 +44,13 @@ public class ResponseHandler
         _response.Ok = false;
     }
     
+    public void SetAsNotFound(string message)
+    {
+        _response.Message = message;
+        _response.Status = HttpStatusCode.NotFound;
+        _response.Ok = false;
+    }
+    
     public void SetAsCreated(object obj, string path = "")
     {
         _response.Message = path;

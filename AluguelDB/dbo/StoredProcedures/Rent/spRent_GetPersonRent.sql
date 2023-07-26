@@ -3,31 +3,29 @@
 	@RentId int
 AS
 BEGIN
-	DECLARE @Data TABLE (
-		[Id] INT
-		,[Name] NVARCHAR(100)
-		,[Type] INT
-		,IndividualAmount SMALLMONEY
-		,Amount SMALLMONEY
-		)
+	DECLARE @ExpenseData TABLE (
+		[Id] INT,
+		[Name] NVARCHAR(100),
+		[Type] INT,
+		[IndividualAmount] SMALLMONEY,
+		[Amount] SMALLMONEY)
+
 	DECLARE @Room TABLE (
-		[RoomId] INT
-		,[Name] NVARCHAR(100)
-		,RoomAmount SMALLMONEY
-		)
+		[RoomId] INT,
+		[Name] NVARCHAR(100),
+		RoomAmount SMALLMONEY)
+
 	DECLARE @PersonAmount SMALLMONEY
 	DECLARE @PersonCount INT
 
-	INSERT INTO @Data
-	EXEC dbo.spExpense_GetByPerson 1
-		,1
+	INSERT INTO @ExpenseData
+	EXEC dbo.spExpense_GetByPerson @RentId, @PersonId
 
 	INSERT INTO @Room
-	EXEC dbo.spRent_GetRoomAmountByPerson 1
-		,1
+	EXEC dbo.spRent_GetRoomAmountByPerson @RentId, @PersonId
 
 	SELECT @PersonAmount = SUM(IndividualAmount)
-	FROM @Data
+	FROM @ExpenseData
 
 	SELECT @PersonCount = COUNT(PersonId)
 	FROM dbo.RentRoomPerson

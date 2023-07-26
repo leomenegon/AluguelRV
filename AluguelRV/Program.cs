@@ -13,10 +13,9 @@ builder.Services.AddDbContext<AluguelContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureDependencyInjection();
-
-//builder.Services.ConfigureAuthentication(builder);
-
+builder.ConfigureAuthentication();
 builder.Services.AddCors();
 
 var app = builder.Build();
@@ -34,10 +33,10 @@ app.UseCors(c =>
     c.AllowAnyOrigin();
 });
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
-//app.UseAuthorization();
-//app.UseAuthentication();
+app.UseAuthorization();
+app.UseAuthentication();
 
 app.ConfigureApi();
 

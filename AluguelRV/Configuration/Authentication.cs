@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -35,9 +36,9 @@ public static class Authentication
         });
     };
 
-    public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, WebApplicationBuilder builder)
+    public static WebApplicationBuilder ConfigureAuthentication(this WebApplicationBuilder builder)
     {
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
         {
             options.TokenValidationParameters = new()
             {
@@ -52,16 +53,14 @@ public static class Authentication
             options.SaveToken = true;
         });
 
-        services.AddAuthorization(
-        //options =>
-        //{
-        //options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        //    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-        //    .RequireAuthenticatedUser()
-        //    .Build();
-        //}
-        );
+        builder.Services.AddAuthorization(options =>
+        {
+            options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .Build();
+        });
 
-        return services;
+        return builder;
     }
 }

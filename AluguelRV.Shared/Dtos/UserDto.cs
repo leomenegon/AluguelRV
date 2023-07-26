@@ -1,4 +1,7 @@
-﻿namespace AluguelRV.Shared.Dtos;
+﻿using AluguelRV.Shared.ViewModels;
+using System;
+
+namespace AluguelRV.Shared.Dtos;
 
 public class LoginRequestDto
 {
@@ -21,4 +24,12 @@ public class CreateUserDto
     public string Name { get; set; }
     public bool Resident { get; set; }
     public int? DefaultRoom { get; set; }
+}
+
+public class UserDto
+{
+    public int Id { get; set; }
+    public string Username { get; set; }
+    public int PersonId { get; set; }
+    public string Role { get; set; }
 }

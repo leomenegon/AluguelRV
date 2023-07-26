@@ -6,26 +6,33 @@ BEGIN
 	DECLARE @PersonCount INT
 	DECLARE @Result TABLE ([Id] INT, [RentId] INT, [Name] NVARCHAR(100), [Type] TINYINT, [Description] NVARCHAR(1000), [IndividualAmount] SMALLMONEY, [Amount] SMALLMONEY)
 	DECLARE @IsCustom BIT
+	DECLARE @IsGeneral BIT
 	DECLARE @CustomAmount SMALLMONEY
 	DECLARE @RentId INT
 
-	SELECT TOP (1) @IsCustom = [CustomDivision], @RentId = [RentId]
+	SELECT TOP (1)
+	@IsCustom = [CustomDivision],
+	@RentId = [RentId],
+	@IsGeneral = [General]
     FROM dbo.Expense
 	WHERE [Id] = @Id
 	AND [Deleted] = 0
 
-	IF @IsCustom = 0 -- Sem divisão personalizada
+	IF @IsCustom != 1 -- Sem divisão personalizada
 	BEGIN
 
-		SELECT @PersonCount = COUNT([PersonId])
-		FROM dbo.[ExpensePerson]
-		WHERE [ExpenseId] = @Id
-
-		IF @PersonCount = 0 -- Se não houver ExpensePersons, será dividido entre todos os Moradores daquele aluguel
+		IF @IsGeneral = 1 -- dividido entre todos os Moradores daquele aluguel
 		BEGIN
 			SELECT @PersonCount = COUNT([PersonId])
 			FROM dbo.[RentRoomPerson]
 			WHERE [RentId] = @RentId
+		END
+
+		ELSE
+		BEGIN
+			SELECT @PersonCount = COUNT([PersonId])
+			FROM dbo.[ExpensePerson]
+			WHERE [ExpenseId] = @Id
 		END
 
 		INSERT @Result

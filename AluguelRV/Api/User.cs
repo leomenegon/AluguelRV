@@ -1,6 +1,7 @@
 ﻿using AluguelRV.Api.Dapper.Data;
 using AluguelRV.Core;
 using AluguelRV.Shared.Dtos;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,21 +14,27 @@ namespace AluguelRV.Api.Api;
 public static class User
 {
     [AllowAnonymous]
-    public static async Task<IResult> Login(IConfiguration configuration, UserData userData, LoginRequestDto loginRequest)
+    public static async Task<IResult> Login(IConfiguration configuration, UserData userData, PersonData personData, LoginRequestDto loginRequest)
     {
         var response = new ResponseHandler();
 
-        if (!await ValidateCredentials(userData, loginRequest))
+        var user = await ValidateCredentials(userData, loginRequest);
+
+        if (user == null)
         {
-            response.SetAsNotFound();
-            response.Message = "Login ou senha incorretos.";
+            response.SetAsNotFound("Login ou senha incorretos.");
 
             return WebApi.Response(response);
         }
 
+        var person = await personData.GetById(user.PersonId);
+
         var claims = new[]
         {
-            new Claim("username", "teste"),
+            new Claim("userId", user.Id.ToString()),
+            new Claim("personId", user.PersonId.ToString()),
+            new Claim("username", user.Username),
+            new Claim("name", person?.Name ?? string.Empty),
             new Claim("role", "user")
         };
 
@@ -67,16 +74,19 @@ public static class User
     //        });
     //}
 
-    private static async Task<bool> ValidateCredentials(UserData userData, LoginRequestDto userDto)
+    private static async Task<UserDto?> ValidateCredentials(UserData userData, LoginRequestDto loginDto)
     {
-        var user = await userData.GetByUsername(userDto.Username);
+        var user = await userData.GetByUsername(loginDto.Username);
 
         if (user == null)
-            return false;
+            return null;
 
         using var hmac = new HMACSHA512(user.Salt);
-        var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDto.Password));
+        var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-        return hash.SequenceEqual(user.Password);
+        if (hash.SequenceEqual(user.Password))
+            return user.Adapt<UserDto>();
+
+        return null;
     }
 }

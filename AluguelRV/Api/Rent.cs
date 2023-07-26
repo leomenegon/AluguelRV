@@ -25,25 +25,43 @@ public static class Rent
         return WebApi.Response(response);
     }
 
-    public static async Task<IResult> GetRoomAmountByPerson(RentData rentData, int rentId, int personId)
+    public static async Task<IResult> GetRoomAmountByPerson(IHttpContextAccessor accessor, RentData rentData, int rentId, int personId = 0)
     {
+        var user = WebApi.GetUserFromContextOrThrow(accessor);
+        if(user.Role != "manager")
+            personId = user.PersonId;
+
         var data = await rentData.GetRoomAmountByPerson(rentId, personId);
 
         return WebApi.CheckNullAndRespond(data);
     }
 
-    public static async Task<IResult> GetPersonRent(ConfigData configData, RentData rentData, int rentId, int personId)
+    public static async Task<IResult> GetPersonRent(IHttpContextAccessor accessor, ConfigData configData, RentData rentData, int rentId = 0, int personId = 0)
     {
+        var user = WebApi.GetUserFromContextOrThrow(accessor);
+        if (user.Role != "manager")
+            personId = user.PersonId;
+
         var response = new ResponseHandler();
 
+        var defRent = await configData.GetByKey("DEF_RENT");
+        var intDefRent = !string.IsNullOrWhiteSpace(defRent) ? int.Parse(defRent) : 0;
+
+        if(rentId < 1 && intDefRent < 1)
+        {
+            response.SetBadRequest("Informe um aluguel válido!");
+            return WebApi.Response(response);
+        }
+        
+        rentId = rentId == 0 ? intDefRent : rentId;
+
         var data = await rentData.GetPersonRent(personId, rentId);
-        var def = await configData.GetByKey("DEF_RENT");
 
         if (data.Any())
             response.Value = new PersonRentListViewModel
             {
                 List = data,
-                DefaultRent = !string.IsNullOrWhiteSpace(def) ? int.Parse(def) : 0
+                DefaultRent = intDefRent
             };
         else
             response.SetAsNotFound();

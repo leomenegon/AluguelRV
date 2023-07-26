@@ -22,8 +22,12 @@ public static class Expense
         return WebApi.CheckNullAndRespond(data);
     }
 
-    public static async Task<IResult> GetByPerson(ExpenseData expenseData, int rentId, int personId)
+    public static async Task<IResult> GetByPerson(IHttpContextAccessor accessor, ExpenseData expenseData, int rentId, int personId = 0)
     {
+        var user = WebApi.GetUserFromContextOrThrow(accessor);
+        if (user.Role != "manager")
+            personId = user.PersonId;
+
         var data = await expenseData.GetByPerson(rentId, personId);
 
         return WebApi.CheckNullAndRespond(data);
