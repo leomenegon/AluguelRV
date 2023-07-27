@@ -2,6 +2,7 @@
 public class CreatePersonRequest
 {
     public string Name { get; set; } = string.Empty;
+    public bool Resident { get; set; } = false;
 }
 
 public class PersonDto

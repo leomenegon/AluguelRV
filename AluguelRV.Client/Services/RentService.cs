@@ -14,13 +14,22 @@ public class RentService
         _navigation=navigation;
     }
 
-    public RentViewModel? Rent { get; set; }
+    public PersonRentViewModel? Rent { get; set; }
+    public IEnumerable<RentViewModel>? Rents { get; set; }
 
     public async Task GetRents()
     {
         var result = await _http.GetFromJsonAsync<RentListViewModel>($"api/rent");
 
         if (result != null)
-            Rent = result.List?.FirstOrDefault();
+            Rents = result.List;
+    }
+
+    public async Task GetIndividualRent()
+    {
+        var result = await _http.GetFromJsonAsync<PersonRentListViewModel>($"api/rent/individual");
+
+        if (result != null && result.List != null && result.List.Any())
+            Rent = result.List?.FirstOrDefault(r => r.Id == result.DefaultRent);
     }
 }

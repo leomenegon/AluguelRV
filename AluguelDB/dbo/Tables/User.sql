@@ -4,6 +4,7 @@
     [Username] NVARCHAR(50) NOT NULL UNIQUE, 
     [Password] BINARY(64) NOT NULL, 
     [Salt] BINARY(128) NOT NULL, 
+    [Role] INT NOT NULL, 
     [PersonId] INT NOT NULL, 
     [Deleted] BIT NOT NULL DEFAULT 0, 
     CONSTRAINT [FK_User_Person] FOREIGN KEY ([PersonId]) REFERENCES [Person]([Id])

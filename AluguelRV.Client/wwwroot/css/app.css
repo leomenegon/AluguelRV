@@ -60,3 +60,18 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.sidebar2 {
+    background-image: none!important;
+    border-bottom: 1px rgba(0,0,0,0.4) solid!important;
+}
+
+.nav-btn{
+    border: none!important;
+    background-color: none!important;
+}
+
+    .nav-btn:focus {
+        outline: none!important;
+        box-shadow: none!important;
+    }

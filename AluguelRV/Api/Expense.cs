@@ -3,6 +3,7 @@ using AluguelRV.Core.Services;
 using AluguelRV.Core;
 using AluguelRV.Shared.Dtos;
 using AluguelRV.Shared.ViewModels;
+using Azure;
 
 namespace AluguelRV.Api.Api;
 
@@ -22,8 +23,11 @@ public static class Expense
         return WebApi.CheckNullAndRespond(data);
     }
 
-    public static async Task<IResult> GetByPerson(IHttpContextAccessor accessor, ExpenseData expenseData, int rentId, int personId = 0)
+    public static async Task<IResult> GetByPerson(IHttpContextAccessor accessor, ExpenseData expenseData, ConfigData configData, int rentId = 0, int personId = 0)
     {
+        if (rentId < 1)
+            rentId = await WebApi.getDefaultRentOrThrow(configData);
+
         var user = WebApi.GetUserFromContextOrThrow(accessor);
         if (user.Role != "manager")
             personId = user.PersonId;

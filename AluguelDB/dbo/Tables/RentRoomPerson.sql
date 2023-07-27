@@ -5,5 +5,6 @@
     [PersonId] INT NOT NULL, 
     CONSTRAINT [FK_RentRoomPerson_Rent] FOREIGN KEY ([RentId]) REFERENCES [Rent]([Id]),
     CONSTRAINT [FK_RentRoomPerson_Room] FOREIGN KEY ([RoomId]) REFERENCES [Room]([Id]),
-    CONSTRAINT [FK_RentRoomPerson_Person] FOREIGN KEY ([PersonId]) REFERENCES [Person]([Id])
+    CONSTRAINT [FK_RentRoomPerson_Person] FOREIGN KEY ([PersonId]) REFERENCES [Person]([Id]),
+    CONSTRAINT [UQ_RentPerson] UNIQUE ([RentId],[PersonId])
 )

@@ -2,29 +2,43 @@
 @inject ExpenseService _expenseService
 
 <PageTitle>Gastos</PageTitle>
-<h3>Gastos</h3>
+<h3 class="mb-4">Gastos</h3>
 <p><AddButton Goto="expenses/create" /></p>
-@if(expenses == null)
+@if (expenses == null)
 {
     <h4>Carregando...</h4>
 }
 else
 {
-    @foreach(var expense in expenses)
-    {
-        <h5>@expense.Name</h5>
-        <p>@expense.Amount.ToString("R$ 0,0.00")</p>
-        <p>@expense.Type</p>
-        <br />
-    }
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var expense in expenses)
+        {
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@expense.Name</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">@expense.IndividualAmount.ToString("R$ 0,0.00")</h6>
+                        <p class="card-text">
+                            <small class="text-body-secondary mr-2">
+                                Tipo: <b>@ExpenseTypeHelper.Display(expense.Type)</b>
+                            </small>
+                            <small class="text-body-secondary">
+                                Total: <b>@expense.Amount.ToString("R$ 0,0.00")</b>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
 
 @code {
-    IEnumerable<ExpenseViewModel>? expenses = null;
+    IEnumerable<PersonExpenseViewModel>? expenses = null;
 
     protected override async Task OnInitializedAsync()
     {
-        await _expenseService.GetExpenses();
-        expenses = _expenseService.Expenses;
+        await _expenseService.GetIndividualExpenses();
+        expenses = _expenseService.PersonExpenses;
     }
 }

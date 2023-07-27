@@ -1,5 +1,10 @@
-﻿<NavLink href="@Goto" class="btn btn-primary">+</NavLink>
-
+﻿<NavLink href="@Goto" class="btn btn-primary position-fixed"
+    style="
+    z-index: 999;
+    bottom: .5rem;
+    right: .5rem;
+    font-size: 2rem;
+    padding: .5rem 1.2rem;">+</NavLink>
 @code {
     [Parameter]
     public string? Goto { get; set; }

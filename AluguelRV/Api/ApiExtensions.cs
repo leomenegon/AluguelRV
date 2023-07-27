@@ -1,4 +1,5 @@
-﻿using AluguelRV.Core;
+﻿using AluguelRV.Api.Dapper.Data;
+using AluguelRV.Core;
 using AluguelRV.Shared.Dtos;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -21,7 +22,7 @@ public static partial class WebApi
 
     public static IResult Response(ResponseHandler response) => response.GetStatus() switch
     {
-        HttpStatusCode.OK => Results.Ok(response.Value),
+        HttpStatusCode.OK => Results.Ok(response.Value != null ? response.Value : response),
         HttpStatusCode.Created => Results.Created(response.Message, response.Value),
         HttpStatusCode.BadRequest => Results.BadRequest(response),
         HttpStatusCode.Unauthorized => Results.Unauthorized(),
@@ -96,5 +97,15 @@ public static partial class WebApi
         };
 
         return user;
+    }
+
+    public static async Task<int> getDefaultRentOrThrow(ConfigData configData)
+    {
+        var defRent = await configData.GetByKey("DEF_RENT");
+        
+        if(!int.TryParse(defRent, out int res) || res < 1)
+            throw new BadHttpRequestException("Informe um aluguel válido!");
+
+        return res;
     }
 }

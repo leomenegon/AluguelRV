@@ -1,6 +1,8 @@
 ﻿using AluguelRV.Api.Dapper.Data;
 using AluguelRV.Core;
+using AluguelRV.Core.Services;
 using AluguelRV.Shared.Dtos;
+using AluguelRV.Shared.Enums;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -54,25 +56,27 @@ public static class User
         return await Task.FromResult(WebApi.Response(response));
     }
 
-    //public static async Task<IResult> Register(IConfiguration configuration, IUserService userService, CreateUserRequest registerRequest)
-    //{
-    //    var response = await userService.Create(registerRequest);
+    public static async Task<IResult> Register(IHttpContextAccessor accessor, UserService userService, CreateUserRequest request)
+    {
+        var requestUser = WebApi.GetUserFromContextOrThrow(accessor);
+        if (!RoleTypeHelper.ValidateManager(requestUser.Role))
+            throw new UnauthorizedAccessException("Você não tem permissão para criar usuários!");
 
-    //    if (!response.IsOk())
-    //    {
-    //        response.SetAsNotFound();
-    //        return Api.Response(response);
-    //    }
+        var response = await userService.Create(request);
 
-    //    return await Login(
-    //        configuration,
-    //        userService,
-    //        new()
-    //        {
-    //            Username = registerRequest.Username,
-    //            Password = registerRequest.Password
-    //        });
-    //}
+        return WebApi.Response(response);
+    }
+
+    public static async Task<IResult> ChangePassword(IHttpContextAccessor accessor, UserService userService, ChangePasswordRequest request)
+    {
+        var requestUser = WebApi.GetUserFromContextOrThrow(accessor);
+        if(requestUser.Id != request.UserId || !RoleTypeHelper.ValidateManager(requestUser.Role))
+            throw new UnauthorizedAccessException("Você não tem permissão para trocar esta senha!");
+
+        var response = await userService.ChangePassword(request);
+
+        return WebApi.Response(response);
+    }
 
     private static async Task<UserDto?> ValidateCredentials(UserData userData, LoginRequestDto loginDto)
     {

@@ -1,4 +1,6 @@
-﻿namespace AluguelRV.Core.Models;
+﻿using AluguelRV.Shared.Enums;
+
+namespace AluguelRV.Core.Models;
 public class User
 {
     public int Id { get; set; }
@@ -6,6 +8,8 @@ public class User
     public byte[] Password { get; set; }
     public byte[] Salt { get; set; }
     public int PersonId { get; set; }
+    public RoleType Role { get; set; }
     public bool Deleted { get; set; }
     public virtual Person Person { get; set; } = null!;
+    public virtual ICollection<Expense> Expenses { get; set; } = null!;
 }

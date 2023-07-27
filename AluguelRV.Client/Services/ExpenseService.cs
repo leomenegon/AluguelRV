@@ -16,14 +16,24 @@ public class ExpenseService
     }
 
     public IEnumerable<ExpenseViewModel>? Expenses { get; set; }
+    public IEnumerable<PersonExpenseViewModel>? PersonExpenses { get; set; }
 
     public async Task GetExpenses()
     {
         var result = await _http.GetFromJsonAsync<IEnumerable<ExpenseViewModel>>("api/expense");
+
         if (result != null)
             Expenses = result;
     }
-    
+
+    public async Task GetIndividualExpenses()
+    {
+        var result = await _http.GetFromJsonAsync<IEnumerable<PersonExpenseViewModel>?>("api/expense/person");
+
+        if (result != null && result.Any())
+            PersonExpenses = result;
+    }
+
     public async Task CreateExpense(CreateExpenseRequest model)
     {
         var request = await _http.PostAsJsonAsync("api/expense", model);

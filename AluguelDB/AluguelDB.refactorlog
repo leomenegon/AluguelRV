@@ -28,4 +28,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CustomDivision" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="6dfcf13e-6114-4d36-b733-2159f9680a6f" ChangeDateTime="07/27/2023 03:26:53">
+    <Property Name="ElementName" Value="[dbo].[Expense].[CreatedBy]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Expense]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreatorUserId" />
+  </Operation>
 </Operations>

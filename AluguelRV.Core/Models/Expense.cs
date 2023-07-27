@@ -11,8 +11,10 @@ public class Expense
     public decimal Amount { get; set; }
     public bool General { get; set; }
     public bool CustomDivision { get; set; }
+    public int UserId { get; set; }
     public DateTime? CreatedAt { get; set; }
     public bool Deleted { get; set; }
     public DateTime? Timestamp { get; set; }
     public virtual Rent Rent { get; set; } = null!;
+    public virtual User User { get; set; } = null!;
 }

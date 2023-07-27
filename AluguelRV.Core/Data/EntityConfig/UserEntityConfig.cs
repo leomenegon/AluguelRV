@@ -27,5 +27,10 @@ public class UserEntityConfig : IEntityTypeConfiguration<User>
             .HasForeignKey(d => d.PersonId)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_User_Person");
+
+        builder.HasMany(d => d.Expenses).WithOne(p => p.User)
+            .HasForeignKey(d => d.UserId)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_User_Person");
     }
 }

@@ -6,7 +6,8 @@ public static partial class WebApi
     {
         //User
         app.MapPost("api/login", Api.User.Login);
-        //app.MapPost("api/user/register", User.Register);
+        app.MapPost("api/user/register", Api.User.Register);
+        app.MapPost("api/user/change-password", Api.User.ChangePassword);
 
         //Person
         app.MapGet("api/person", Api.Person.GetAll);
@@ -14,7 +15,7 @@ public static partial class WebApi
 
         //Rent
         app.MapGet("api/rent", Api.Rent.GetAll);
-        app.MapGet("api/rent/room-amount/", Api.Rent.GetRoomAmountByPerson);
+        app.MapGet("api/rent/room-amount", Api.Rent.GetRoomAmountByPerson);
         app.MapGet("api/rent/individual", Api.Rent.GetPersonRent);
 
         //Expense

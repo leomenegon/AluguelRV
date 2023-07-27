@@ -13,7 +13,14 @@ public class CreateUserRequest
 {
     public string Username { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+    public int? PersonId { get; set; } = null;
     public CreatePersonRequest? Person { get; set; }
+}
+public class ChangePasswordRequest
+{
+    public int UserId { get; set; }
+    public string OldPassword { get; set; } = string.Empty;
+    public string NewPassword { get; set; } = string.Empty;
 }
 
 public class CreateUserDto

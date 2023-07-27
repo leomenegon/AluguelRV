@@ -3,31 +3,30 @@
 @inject RentService _rentService
 
 <PageTitle></PageTitle>
-<h3>Dashboard</h3>
+<h3 class="mb-4">Dashboard</h3>
 
-@if(mainRent == null)
+@if (mainRent == null)
 {
     <h4>Carregando...</h4>
 }
 else
 {
-    <div>
-        <p>
-            @mainRent.Year / @mainRent.Month
-            -
-            @mainRent.Name
-            -
-            @mainRent.Amount.ToString("R$ 0,0.00")
-        </p>
+    <div class="card col-sm-12 col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">@mainRent.Name</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">@mainRent.IndividualRent.ToString("R$ 0,0.00")</h6>
+            <p class="card-text">@mainRent.Month.ToString("00")/@mainRent.Year</p>
+            @*<a href="#" class="card-link">Card link</a>*@
+        </div>
     </div>
 }
 
 @code {
-    RentViewModel? mainRent = null;
+    PersonRentViewModel? mainRent = null;
 
     protected override async Task OnInitializedAsync()
     {
-        await _rentService.GetRents();
+        await _rentService.GetIndividualRent();
         mainRent = _rentService.Rent;
     }
 }
