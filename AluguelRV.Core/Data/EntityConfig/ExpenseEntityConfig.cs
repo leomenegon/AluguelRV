@@ -17,11 +17,11 @@ public class ExpenseEntityConfig : IEntityTypeConfiguration<Expense>
         builder.Property(e => e.Name).IsUnicode();
         builder.Property(e => e.Type).IsRequired().HasDefaultValue(ExpenseType.HouseBill).HasColumnType("TINYINT");
         builder.Property(e => e.Description).IsUnicode();
-        builder.Property(e => e.Amount).HasColumnType("smallmoney").IsRequired().HasDefaultValue(false);
+        builder.Property(e => e.Amount).HasColumnType("smallmoney").IsRequired();
         builder.Property(e => e.General).IsRequired().HasDefaultValue(true);
-        builder.Property(e => e.UserId).IsRequired().HasDefaultValue(false);
+        builder.Property(e => e.UserId).IsRequired();
         builder.Property(e => e.CustomDivision).IsRequired().HasDefaultValue(false);
-        builder.Property(e => e.CreatedAt).HasDefaultValue(DateTime.UtcNow);
+        builder.Property(e => e.CreatedAt).HasDefaultValueSql("(getutcdate())");
         builder.Property(e => e.Deleted).IsRequired().HasDefaultValue(false);
         builder.Property(e => e.Timestamp).HasDefaultValueSql("(getutcdate())");
 

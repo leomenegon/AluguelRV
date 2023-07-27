@@ -1,5 +1,6 @@
 ﻿using AluguelRV.Api.Dapper.Data;
 using AluguelRV.Core;
+using AluguelRV.Shared.Enums;
 using AluguelRV.Shared.ViewModels;
 
 namespace AluguelRV.Api.Api;
@@ -28,7 +29,7 @@ public static class Rent
     public static async Task<IResult> GetRoomAmountByPerson(IHttpContextAccessor accessor, RentData rentData, int rentId, int personId = 0)
     {
         var user = WebApi.GetUserFromContextOrThrow(accessor);
-        if(user.Role != "manager")
+        if (personId == 0 || !RoleTypeHelper.ValidateManager(user.Role))
             personId = user.PersonId;
 
         var data = await rentData.GetRoomAmountByPerson(rentId, personId);
@@ -39,7 +40,7 @@ public static class Rent
     public static async Task<IResult> GetPersonRent(IHttpContextAccessor accessor, ConfigData configData, RentData rentData, int rentId = 0, int personId = 0)
     {
         var user = WebApi.GetUserFromContextOrThrow(accessor);
-        if (user.Role != "manager")
+        if (personId == 0 || !RoleTypeHelper.ValidateManager(user.Role))
             personId = user.PersonId;
 
         var response = new ResponseHandler();

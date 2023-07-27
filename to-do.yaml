@@ -1,0 +1,101 @@
+prioridade:
+ zerar bd e cadastrar aluguel sério
+
+todo:
+ edit expense ef transaction:
+  metodo service
+  endpoint
+  form
+ view expense details component:
+  metodo service
+  endpoint
+  form
+ delete expense ef transaction:
+  metodo service
+  endpoint
+  form
+ módulo pagamento aluguel:
+  get:
+   metodo service
+   endpoint
+   form
+  create:
+   metodo service
+   endpoint
+   form
+  edit:
+   metodo service
+   endpoint
+   form
+  deleted:
+   metodo service
+   endpoint
+   botao
+ módulo dívidas:
+  get:
+   metodo service
+   endpoint
+   form
+  create:
+   metodo service
+   endpoint
+   form
+  edit:
+   metodo service
+   endpoint
+   form
+  deleted:
+   metodo service
+   endpoint
+   botao
+ módulo pagamento dívidas:
+  get:
+   metodo service
+   endpoint
+   form
+  create:
+   metodo service
+   endpoint
+   form
+  edit:
+   metodo service
+   endpoint
+   form
+  deleted:
+   metodo service
+   endpoint
+   botao
+ módulo aluguel:
+  get:
+   metodo service
+   endpoint
+   form
+  create:
+   metodo service
+   endpoint
+   form
+  edit:
+   metodo service
+   endpoint
+   form
+  deleted:
+   metodo service
+   endpoint
+   botao
+ módulo reports:
+  get:
+   metodo service
+   endpoint
+   form
+  create:
+   metodo service
+   endpoint
+   form
+  edit:
+   metodo service
+   endpoint
+   form
+  deleted:
+   metodo service
+   endpoint
+   botao   

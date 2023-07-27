@@ -12,4 +12,7 @@ public class User
     public bool Deleted { get; set; }
     public virtual Person Person { get; set; } = null!;
     public virtual ICollection<Expense> Expenses { get; set; } = null!;
+
+    // Pagamentos que este user cadastrou (não necessáriamente ele que pagou)
+    public virtual ICollection<RentPayment> CreatedRentPayments { get; set; } = new List<RentPayment>();
 }

@@ -7,4 +7,5 @@ public class Person
     public bool Resident { get; set; }
     public bool Deleted { get; set; }
     public virtual ICollection<User> Users { get; set; } = new List<User>();
+    public virtual ICollection<RentPayment> RentPayments { get; set; } = new List<RentPayment>();
 }

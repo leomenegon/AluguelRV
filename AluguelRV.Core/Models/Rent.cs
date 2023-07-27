@@ -12,4 +12,5 @@ public class Rent
     public DateTime? CreatedAt { get; set; }
     public DateTime? Timestamp { get; set; }
     public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+    public virtual ICollection<RentPayment> Payments { get; set; } = new List<RentPayment>();
 }

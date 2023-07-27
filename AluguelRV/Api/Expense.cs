@@ -4,6 +4,7 @@ using AluguelRV.Core;
 using AluguelRV.Shared.Dtos;
 using AluguelRV.Shared.ViewModels;
 using Azure;
+using AluguelRV.Shared.Enums;
 
 namespace AluguelRV.Api.Api;
 
@@ -29,7 +30,7 @@ public static class Expense
             rentId = await WebApi.getDefaultRentOrThrow(configData);
 
         var user = WebApi.GetUserFromContextOrThrow(accessor);
-        if (user.Role != "manager")
+        if (!RoleTypeHelper.ValidateManager(user.Role))
             personId = user.PersonId;
 
         var data = await expenseData.GetByPerson(rentId, personId);
